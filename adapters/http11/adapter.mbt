@@ -41,11 +41,11 @@ pub fn parse_http11_request(
       }
       i = i + 1
     }
-    if !protocol.has_prefix("HTTP/") {
+    if protocol != "HTTP/1.1" {
       raise @hsig.hs_error(
         @hsig.HsErrorStage::MessageConstruction,
         @hsig.HsErrorKind::InvalidMethod,
-        "not an HTTP request line",
+        "expected HTTP/1.1 request line",
       )
     }
     // Split target into path and query.

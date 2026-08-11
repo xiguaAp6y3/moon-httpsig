@@ -37,6 +37,25 @@ test "adapter_rejects_non_http" {
 }
 
 ///|
+test "adapter_requires_http11" {
+  // HTTP/1.1 is accepted.
+  match parse_http11_request("GET / HTTP/1.1\nHost: h\n\n") {
+    Ok(req) => inspect(req.method, content="GET")
+    Err(_) => abort("HTTP/1.1 must be accepted")
+  }
+  // HTTP/1.0 is rejected: this adapter only speaks HTTP/1.1.
+  match parse_http11_request("GET / HTTP/1.0\nHost: h\n\n") {
+    Ok(_) => abort("HTTP/1.0 must be rejected")
+    Err(e) => inspect(e.kind_name(), content="InvalidMethod")
+  }
+  // HTTP/2 is rejected.
+  match parse_http11_request("GET / HTTP/2\nHost: h\n\n") {
+    Ok(_) => abort("HTTP/2 must be rejected")
+    Err(e) => inspect(e.kind_name(), content="InvalidMethod")
+  }
+}
+
+///|
 
 ///|
 
