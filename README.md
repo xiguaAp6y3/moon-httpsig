@@ -246,7 +246,7 @@ Apache-2.0，见 [LICENSE](LICENSE)。
 
 截至项目立项时的公开生态检索，未发现完整的 MoonBit RFC 9421 HTTP Message
 Signatures 实现。**这不是绝对保证**，仅代表立项时检索到的公开信息。
-项目已公开发布到 GitHub（`xiguaAp6y3/moon-httpsig`）；尚未发布到 Mooncakes
-包仓库，也未创建 Release。
+项目已公开发布到 GitHub（`xiguaAp6y3/moon-httpsig`），并已发布到 Mooncakes
+包仓库（`xiguaAp6y3/moon-httpsig@0.1.0`）；尚未创建 GitHub Release。
 
 [RFC 9421]: https://www.rfc-editor.org/rfc/rfc9421.html
