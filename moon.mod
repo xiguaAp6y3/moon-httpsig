@@ -1,8 +1,10 @@
 name = "xiguaAp6y3/moon-httpsig"
 
-version = "0.1.0-dev"
+version = "0.1.0"
 
 readme = "README.md"
+
+repository = "https://github.com/xiguaAp6y3/moon-httpsig"
 
 license = "Apache-2.0"
 

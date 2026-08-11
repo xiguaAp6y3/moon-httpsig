@@ -1,9 +1,8 @@
 # Changelog
 
-## 0.1.0-dev (unreleased)
+## 0.1.0
 
-Local, anonymous development build. Initial implementation of RFC 9421
-HTTP Message Signatures for MoonBit.
+Initial implementation of RFC 9421 HTTP Message Signatures for MoonBit.
 
 ### Added
 
