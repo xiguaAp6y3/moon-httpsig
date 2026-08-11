@@ -1,0 +1,21 @@
+[
+  {
+    "name": "rfc2104_case1",
+    "key_hex": "0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b",
+    "data_hex": "4869205468657265",
+    "expected_hex": "b0344c61d8db38535ca8afceaf0bf12b881dc200c9833da726e9376c2e32cff7"
+  },
+  {
+    "name": "empty_key_empty_message",
+    "key_hex": "",
+    "data_hex": "",
+    "expected_hex": "b613679a0814d9ec772f95d778c35fc5ff1697c493715653c6c712144292c5ad"
+  },
+  {
+    "name": "rfc9421_b25",
+    "key_b64": "uzvJfB4u3N0Jy4T7NZ75MDVcr8zSTInedJtkgcu46YW4XByzNJjxBdtjUkdJPBtbmHhIDi6pcl8jsasjlTMtDQ==",
+    "data_b64": "ImRhdGUiOiBUdWUsIDIwIEFwciAyMDIxIDAyOjA3OjU1IEdNVAoiQGF1dGhvcml0eSI6IGV4YW1wbGUuY29tCiJjb250ZW50LXR5cGUiOiBhcHBsaWNhdGlvbi9qc29uCiJAc2lnbmF0dXJlLXBhcmFtcyI6ICgiZGF0ZSIgIkBhdXRob3JpdHkiICJjb250ZW50LXR5cGUiKTtjcmVhdGVkPTE2MTg4ODQ0NzM7a2V5aWQ9InRlc3Qtc2hhcmVkLXNlY3JldCI=",
+    "data_text": "\"date\": Tue, 20 Apr 2021 02:07:55 GMT\n\"@authority\": example.com\n\"content-type\": application/json\n\"@signature-params\": (\"date\" \"@authority\" \"content-type\");created=1618884473;keyid=\"test-shared-secret\"",
+    "expected_b64": "pxcQw6G3AjtMBQjwo8XzkZf/bws5LelbaMk5rGIGtE8="
+  }
+]

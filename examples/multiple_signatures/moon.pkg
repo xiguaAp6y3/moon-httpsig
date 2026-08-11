@@ -1,0 +1,6 @@
+import {
+  "moonbitlang/core/encoding/utf8",
+  "localdev/moon-httpsig" @hsig,
+}
+
+pkgtype(kind: "executable")

@@ -1,0 +1,19 @@
+{
+  "name": "test-request",
+  "message_lines": [
+    "POST /foo?param=Value&Pet=dog HTTP/1.1",
+    "Host: example.com",
+    "Date: Tue, 20 Apr 2021 02:07:55 GMT",
+    "Content-Type: application/json",
+    "Content-Digest: sha-512=:WZDPaVn/7XgHaAy8pmojAkGWoRx2UFChF41A2svX+TaPm+AbwAgBWnrIiYllu7BNNyealdVLvRwEmTHWXvJwew==:",
+    "Content-Length: 18",
+    "",
+    "{\"hello\": \"world\"}"
+  ],
+  "method": "POST",
+  "scheme": "https",
+  "authority": "example.com",
+  "path": "/foo",
+  "query": "param=Value&Pet=dog",
+  "sha256": "601fbb7a873fe12ac5b29acb4683fc51d3c98435dba7edc5b0267c8344cb684c"
+}

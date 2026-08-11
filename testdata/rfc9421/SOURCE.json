@@ -1,0 +1,14 @@
+{
+  "rfc_number": 9421,
+  "rfc_title": "HTTP Message Signatures",
+  "section": "Appendix B",
+  "fixture_version": "1.0",
+  "generated_at": "fixed:2026-01-01T00:00:00Z",
+  "source_description": "Embedded fixture data derived from RFC 9421 Appendix B examples (public test vectors and the public test shared secret).",
+  "sha256": "601fbb7a873fe12ac5b29acb4683fc51d3c98435dba7edc5b0267c8344cb684c",
+  "notes": [
+    "No network content is fetched.",
+    "Output is deterministic across runs.",
+    "The HMAC example (B.2.5) is byte-verifiable by this library."
+  ]
+}

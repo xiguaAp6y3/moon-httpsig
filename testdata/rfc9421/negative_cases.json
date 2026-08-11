@@ -1,0 +1,42 @@
+[
+  {
+    "input": "a b",
+    "kind": "InvalidStructuredField"
+  },
+  {
+    "input": "A=1",
+    "kind": "InvalidStructuredField"
+  },
+  {
+    "input": "a=\"unterminated",
+    "kind": "UnexpectedEnd"
+  },
+  {
+    "input": "a=:badbase$:",
+    "kind": "InvalidBase64"
+  },
+  {
+    "input": "a=1;b=1;b=2",
+    "kind": "InvalidStructuredField"
+  },
+  {
+    "input": "a=99999999999999999999",
+    "kind": "InvalidInteger"
+  },
+  {
+    "input": "a=?2",
+    "kind": "InvalidStructuredField"
+  },
+  {
+    "input": "(unterminated",
+    "kind": "UnexpectedEnd"
+  },
+  {
+    "input": "a=1,",
+    "kind": "InvalidStructuredField"
+  },
+  {
+    "input": "a=(\"@method\");created=\"x\"",
+    "kind": "InvalidSignatureInput"
+  }
+]

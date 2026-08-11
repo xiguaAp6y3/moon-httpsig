@@ -1,0 +1,12 @@
+# MoonBit build artifacts
+_build/
+target/
+*.wasm
+*.wasm.map
+
+# MoonBit dependency cache
+.mooncakes/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db

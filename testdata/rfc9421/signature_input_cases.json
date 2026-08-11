@@ -1,0 +1,44 @@
+[
+  {
+    "name": "b2.1",
+    "section": "B.2.1",
+    "message": "test-request",
+    "algorithm": "rsa-pss-sha512",
+    "signature_input": "sig-b21=();created=1618884473;keyid=\"test-key-rsa-pss\";nonce=\"b3k2pp5k7z-50gnwp.yemd\""
+  },
+  {
+    "name": "b2.2",
+    "section": "B.2.2",
+    "message": "test-request",
+    "algorithm": "rsa-pss-sha512",
+    "signature_input": "sig-b22=(\"@authority\" \"content-digest\" \"@query-param\";name=\"Pet\");created=1618884473;keyid=\"test-key-rsa-pss\";tag=\"header-example\""
+  },
+  {
+    "name": "b2.3",
+    "section": "B.2.3",
+    "message": "test-request",
+    "algorithm": "rsa-pss-sha512",
+    "signature_input": "sig-b23=(\"date\" \"@method\" \"@path\" \"@query\" \"@authority\" \"content-type\" \"content-digest\" \"content-length\");created=1618884473;keyid=\"test-key-rsa-pss\""
+  },
+  {
+    "name": "b2.4",
+    "section": "B.2.4",
+    "message": "test-response",
+    "algorithm": "ecdsa-p256-sha256",
+    "signature_input": "sig-b24=(\"@status\" \"content-type\" \"content-digest\" \"content-length\");created=1618884473;keyid=\"test-key-ecc-p256\""
+  },
+  {
+    "name": "b2.5",
+    "section": "B.2.5",
+    "message": "test-request",
+    "algorithm": "hmac-sha256",
+    "signature_input": "sig-b25=(\"date\" \"@authority\" \"content-type\");created=1618884473;keyid=\"test-shared-secret\""
+  },
+  {
+    "name": "b2.6",
+    "section": "B.2.6",
+    "message": "test-request",
+    "algorithm": "ed25519",
+    "signature_input": "sig-b26=(\"date\" \"@method\" \"@path\" \"@authority\" \"content-type\" \"content-length\");created=1618884473;keyid=\"test-key-ed25519\""
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "b2.1",
+    "section": "B.2.1",
+    "label": "sig-b21",
+    "message": "test-request",
+    "algorithm": "rsa-pss-sha512",
+    "signature_input": "sig-b21=();created=1618884473;keyid=\"test-key-rsa-pss\";nonce=\"b3k2pp5k7z-50gnwp.yemd\"",
+    "signature_base": "@signature-params: ();created=1618884473;keyid=\"test-key-rsa-pss\";nonce=\"b3k2pp5k7z-50gnwp.yemd\"",
+    "base_sha256": "8f77db31aa61631b4df43e935a158bf2be8eb4936e440df77cdde3d0c8c243ac"
+  },
+  {
+    "name": "b2.2",
+    "section": "B.2.2",
+    "label": "sig-b22",
+    "message": "test-request",
+    "algorithm": "rsa-pss-sha512",
+    "signature_input": "sig-b22=(\"@authority\" \"content-digest\" \"@query-param\";name=\"Pet\");created=1618884473;keyid=\"test-key-rsa-pss\";tag=\"header-example\"",
+    "signature_base": "\"@authority\": example.com\n\"content-digest\": sha-512=:WZDPaVn/7XgHaAy8pmojAkGWoRx2UFChF41A2svX+TaPm+AbwAgBWnrIiYllu7BNNyealdVLvRwEmTHWXvJwew==:\n\"@query-param\";name=\"Pet\": dog\n\"@signature-params\": (\"@authority\" \"content-digest\" \"@query-param\";name=\"Pet\");created=1618884473;keyid=\"test-key-rsa-pss\";tag=\"header-example\"",
+    "base_sha256": "583b3f0c08dd5411e7274618358d36d7cd7cd380724d4ed2f8105b435babcae6"
+  },
+  {
+    "name": "b2.3",
+    "section": "B.2.3",
+    "label": "sig-b23",
+    "message": "test-request",
+    "algorithm": "rsa-pss-sha512",
+    "signature_input": "sig-b23=(\"date\" \"@method\" \"@path\" \"@query\" \"@authority\" \"content-type\" \"content-digest\" \"content-length\");created=1618884473;keyid=\"test-key-rsa-pss\"",
+    "signature_base": "\"date\": Tue, 20 Apr 2021 02:07:55 GMT\n\"@method\": POST\n\"@path\": /foo\n\"@query\": ?param=Value&Pet=dog\n\"@authority\": example.com\n\"content-type\": application/json\n\"content-digest\": sha-512=:WZDPaVn/7XgHaAy8pmojAkGWoRx2UFChF41A2svX+TaPm+AbwAgBWnrIiYllu7BNNyealdVLvRwEmTHWXvJwew==:\n\"content-length\": 18\n\"@signature-params\": (\"date\" \"@method\" \"@path\" \"@query\" \"@authority\" \"content-type\" \"content-digest\" \"content-length\");created=1618884473;keyid=\"test-key-rsa-pss\"",
+    "base_sha256": "d786e78f598692440526474950ca190880abd4e2de8c5c3458b256ec0236de96"
+  },
+  {
+    "name": "b2.4",
+    "section": "B.2.4",
+    "label": "sig-b24",
+    "message": "test-response",
+    "algorithm": "ecdsa-p256-sha256",
+    "signature_input": "sig-b24=(\"@status\" \"content-type\" \"content-digest\" \"content-length\");created=1618884473;keyid=\"test-key-ecc-p256\"",
+    "signature_base": "\"@status\": 200\n\"content-type\": application/json\n\"content-digest\": sha-512=:mEWXIS7MaLRuGgxOBdODa3xqM1XdEvxoYhvlCFJ41QJgJc4GTsPp29l5oGX69wWdXymyU0rjJuahq4l5aGgfLQ==:\n\"content-length\": 23\n\"@signature-params\": (\"@status\" \"content-type\" \"content-digest\" \"content-length\");created=1618884473;keyid=\"test-key-ecc-p256\"",
+    "base_sha256": "a44c7b3073f410ccc0fe106b2deddabe48dbd3fcbf04a1965ecbf3b6f8241c3d"
+  },
+  {
+    "name": "b2.5",
+    "section": "B.2.5",
+    "label": "sig-b25",
+    "message": "test-request",
+    "algorithm": "hmac-sha256",
+    "signature_input": "sig-b25=(\"date\" \"@authority\" \"content-type\");created=1618884473;keyid=\"test-shared-secret\"",
+    "signature_base": "\"date\": Tue, 20 Apr 2021 02:07:55 GMT\n\"@authority\": example.com\n\"content-type\": application/json\n\"@signature-params\": (\"date\" \"@authority\" \"content-type\");created=1618884473;keyid=\"test-shared-secret\"",
+    "base_sha256": "82faed1b67e492cfc8fe50fee1b6fdbdcf9f4d6384af8282339dcad5e44310e7"
+  },
+  {
+    "name": "b2.6",
+    "section": "B.2.6",
+    "label": "sig-b26",
+    "message": "test-request",
+    "algorithm": "ed25519",
+    "signature_input": "sig-b26=(\"date\" \"@method\" \"@path\" \"@authority\" \"content-type\" \"content-length\");created=1618884473;keyid=\"test-key-ed25519\"",
+    "signature_base": "\"date\": Tue, 20 Apr 2021 02:07:55 GMT\n\"@method\": POST\n\"@path\": /foo\n\"@authority\": example.com\n\"content-type\": application/json\n\"content-length\": 18\n\"@signature-params\": (\"date\" \"@method\" \"@path\" \"@authority\" \"content-type\" \"content-length\");created=1618884473;keyid=\"test-key-ed25519\"",
+    "base_sha256": "e6402577f54303accfda63dfbde1a7b8c5e5e6f3f7898637b7d78dc07ee1896a"
+  }
+]

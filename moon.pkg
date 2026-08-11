@@ -1,0 +1,9 @@
+import {
+  "moonbitlang/core/buffer" @buf,
+  "moonbitlang/core/encoding/base64" @b64,
+  "moonbitlang/core/encoding/utf8",
+  "moonbitlang/core/env",
+  "moonbitlang/core/string",
+  "moonbitlang/core/strconv",
+  "gmlewis/sha256",
+}

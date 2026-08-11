@@ -1,0 +1,14 @@
+{
+  "name": "test-response",
+  "message_lines": [
+    "HTTP/1.1 200 OK",
+    "Date: Tue, 20 Apr 2021 02:07:56 GMT",
+    "Content-Type: application/json",
+    "Content-Digest: sha-512=:mEWXIS7MaLRuGgxOBdODa3xqM1XdEvxoYhvlCFJ41QJgJc4GTsPp29l5oGX69wWdXymyU0rjJuahq4l5aGgfLQ==:",
+    "Content-Length: 23",
+    "",
+    "{\"message\": \"good dog\"}"
+  ],
+  "status": 200,
+  "sha256": "24b1a3d2492506d5a574d63230798f47004b475cda15e5ec755e9ca2442e3440"
+}
