@@ -6,10 +6,37 @@
 
 $ErrorActionPreference = "Stop"
 
-$moon = "D:\Moonbit\bin\moon.exe"
-$python = "python"
-$project = "D:\Moonbit\projects\project8"
+# Resolve the project root from the script's own location, so the script works
+# from any checkout directory (not only D:\Moonbit\projects\project8).
+$project = Split-Path -Parent $PSScriptRoot
 Set-Location $project
+
+# Resolve the MoonBit binary: MOON_BIN env var first, then PATH, then a
+# Windows-local fallback. Fail loudly if none is available.
+function Resolve-Moon {
+    if ($env:MOON_BIN -and (Test-Path $env:MOON_BIN)) {
+        return $env:MOON_BIN
+    }
+    $cmd = Get-Command moon -ErrorAction SilentlyContinue
+    if ($cmd) {
+        return $cmd.Source
+    }
+    $fallback = "D:\Moonbit\bin\moon.exe"
+    if (Test-Path $fallback) {
+        return $fallback
+    }
+    Write-Error "moon not found. Set MOON_BIN, add moon to PATH, or run on the usual dev machine."
+    exit 1
+}
+$moon = Resolve-Moon
+
+# Python is taken from PATH.
+$python = "python"
+$pyCmd = Get-Command $python -ErrorAction SilentlyContinue
+if (-not $pyCmd) {
+    Write-Error "python not found on PATH; required by scripts\count_code.py and the fixture scripts."
+    exit 1
+}
 
 Write-Host "== moon clean =="
 & $moon clean
