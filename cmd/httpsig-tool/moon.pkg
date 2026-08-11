@@ -1,7 +1,7 @@
 import {
   "moonbitlang/core/env",
   "moonbitlang/core/encoding/utf8",
-  "localdev/moon-httpsig" @hsig,
+  "xiguaAp6y3/moon-httpsig" @hsig,
 }
 
 pkgtype(kind: "executable")

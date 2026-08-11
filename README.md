@@ -3,8 +3,8 @@
 RFC 9421 HTTP Message Signatures canonicalization, HMAC signing, verification,
 and policy toolkit for MoonBit.
 
-> 本地开发状态：这是一个纯本地、匿名的开发项目，尚未发布到任何远程仓库或
-> 包仓库。临时模块名为 `localdev/moon-httpsig`，后续身份确定后再统一替换。
+> 模块命名空间：`xiguaAp6y3/moon-httpsig`（原临时命名空间
+> `localdev/moon-httpsig` 已统一替换）。
 
 ## 中文项目介绍
 

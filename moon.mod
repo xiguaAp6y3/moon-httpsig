@@ -1,4 +1,4 @@
-name = "localdev/moon-httpsig"
+name = "xiguaAp6y3/moon-httpsig"
 
 version = "0.1.0-dev"
 

@@ -1,36 +1,30 @@
-# 后期重命名说明
+# 模块重命名记录
 
-本阶段使用临时模块名 `localdev/moon-httpsig`，且不填写 repository、author、
-maintainer、email、homepage 等身份信息。**后期身份确定后**需要统一替换命名
-空间；届时再填写对应账号与邮箱（本阶段不填写，也不得在最终报告声称已完成
-身份信息）。
+本项目正式模块命名空间已从临时命名空间 `localdev/moon-httpsig` 统一修改为
+**`xiguaAp6y3/moon-httpsig`**（对应 GitHub 仓库
+`xiguaAp6y3/moon-httpsig`）。
 
-## 需要修改的文件
+## 已修改的文件
 
 | 文件 | 改动 |
 | --- | --- |
-| `moon.mod` | `name = "localdev/moon-httpsig"` → 新的 `owner/name`；视需要补充 repository/homepage/author/maintainer/email |
-| `moon.pkg` | `"localdev/moon-httpsig"` 引用（根包内嵌，通常无显式引用） |
-| `cmd/httpsig-tool/moon.pkg` | `import { "localdev/moon-httpsig" @hsig }` → 新包名 |
-| `examples/*/moon.pkg` | 同上 |
+| `moon.mod` | `name = "localdev/moon-httpsig"` → `name = "xiguaAp6y3/moon-httpsig"` |
+| `cmd/httpsig-tool/moon.pkg` | `import { "localdev/moon-httpsig" @hsig }` → `"xiguaAp6y3/moon-httpsig"` |
 | `adapters/http11/moon.pkg` | 同上 |
-| `docs/*.md`、`README.md` | 提及 `localdev/moon-httpsig` 处 |
-| `THIRD_PARTY_NOTICES.md` | 如适用 |
+| `examples/*/moon.pkg`（6 个） | 同上 |
+| `README.md`、`CHANGELOG.md` | 提及旧命名空间处已更新为 `xiguaAp6y3/moon-httpsig` |
 
-## 替换方式
+替换后三目标 `check`/`test` 全部通过，仓库中不再有需要运行时使用的
+`localdev/moon-httpsig` 引用。本文件保留了旧命名空间的说明，仅作为历史记录。
 
-在根目录执行批量替换后，运行三目标验证：
+## 历史背景
 
-```powershell
-# 示例（identity 替换为新的 owner/name）
-# 先全局搜索 "localdev/moon-httpsig"，确认全部出现位置
-moon check --target wasm-gc && moon test --target wasm-gc
-moon check --target js && moon test --target js
-moon check --target native && moon test --target native
-```
+立项阶段使用临时模块名 `localdev/moon-httpsig`，且不填写 repository、author、
+maintainer、email 等身份信息。模块命名空间确定后统一替换；此后本文件的角色
+从“重命名说明”变为“重命名记录”。
 
 ## 约束
 
-- 重命名后不得遗留任何 `localdev/moon-httpsig` 引用；
+- 重命名后不得遗留任何需要运行时使用的 `localdev/moon-httpsig` 引用；
 - 不得填写未确定的未来账号或邮箱；
-- 重命名不属于本阶段任务。
+- 除模块名本身外，本阶段不引入与命名空间无关的大范围改动。

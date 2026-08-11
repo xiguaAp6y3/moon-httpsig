@@ -29,4 +29,5 @@ HTTP Message Signatures for MoonBit.
 
 - Algorithms other than `hmac-sha256` are recognized but not implemented;
   they return `AlgorithmNotAllowed`.
-- Module name is the temporary `localdev/moon-httpsig`; see `docs/renaming.md`.
+- Module namespace is `xiguaAp6y3/moon-httpsig` (renamed from the temporary
+  `localdev/moon-httpsig`); see `docs/renaming.md`.
