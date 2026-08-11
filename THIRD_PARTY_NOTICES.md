@@ -2,9 +2,9 @@
 
 ## Runtime dependency
 
-- **gmlewis/sha256** — Apache-2.0. Used as the mature SHA-256 primitive for
-  HMAC-SHA256 and Content-Digest. No code is copied from it; it is consumed as
-  a dependency.
+- **gmlewis/sha256@0.17.32** — Apache-2.0. Used as the mature SHA-256 primitive
+  for HMAC-SHA256 and Content-Digest. No code is copied from it; it is consumed
+  as a dependency.
 
 ## RFC test data
 

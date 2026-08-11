@@ -3,8 +3,10 @@
 RFC 9421 HTTP Message Signatures canonicalization, HMAC signing, verification,
 and policy toolkit for MoonBit.
 
-> 模块命名空间：`xiguaAp6y3/moon-httpsig`（原临时命名空间
-> `localdev/moon-httpsig` 已统一替换）。
+> **Project/module**: `xiguaAp6y3/moon-httpsig`
+> **Repository**: https://github.com/xiguaAp6y3/moon-httpsig
+> **Version**: 0.1.0
+> **License**: Apache-2.0
 
 ## 中文项目介绍
 
@@ -29,7 +31,7 @@ Signatures）工具库。它提供：
 
 ## English Summary
 
-`moon-httpsig` is a from-scratch, local-only MoonBit implementation of
+`moon-httpsig` is a from-scratch MoonBit implementation of
 [RFC 9421] (HTTP Message Signatures). It covers the HTTP message model, an
 RFC 9651 structured-field subset, covered-component resolution, byte-exact
 signature-base construction, an HMAC-SHA256 provider built on a mature
@@ -91,7 +93,8 @@ Values）、RFC 9110（HTTP Semantics）。
 环境要求：MoonBit（含 `wasm-gc` / `js` / `native` 目标）、Python 3。
 
 ```sh
-cd D:\Moonbit\projects\project8
+git clone https://github.com/xiguaAp6y3/moon-httpsig.git
+cd moon-httpsig
 moon add gmlewis/sha256          # 已写入 moon.mod，无需重复执行
 moon test                        # 运行全部测试（默认目标）
 moon run cmd/httpsig-tool -- --help
@@ -205,9 +208,10 @@ moon run examples/content_digest_binding
 
 ## 测试结果
 
-- 具名测试：100 个（超过要求的 100 个）；
-- 表格案例：超过 200 个；
-- 确定性属性测试：1000+ 组固定种子 sign→verify 循环（1100 组）；
+- 具名测试：101 个（根目录 94 + 适配器 7）；
+- 表格案例：91 个表驱动条目；
+- 确定性属性测试：1100 组固定种子 sign→verify 循环（1000 组完整循环 +
+  100 组覆盖/未覆盖变更判定）；
 - RFC 9421 Appendix B 的 HMAC 示例与签名基示例逐字节通过；
 - `wasm-gc`、`js`、`native` 三目标：`check`/`build`/`test` 均通过，0 errors，
   0 warnings（`reserved_keyword` 因规范要求保留 `method` 字段名而被抑制）。
@@ -215,7 +219,6 @@ moon run examples/content_digest_binding
 ## 目录结构
 
 ```
-project8/
 ├── cmd/httpsig-tool/        CLI
 ├── adapters/http11/         HTTP/1.1 文本适配器
 ├── docs/                    文档
@@ -239,10 +242,11 @@ project8/
 
 Apache-2.0，见 [LICENSE](LICENSE)。
 
-## 本地开发状态
+## 发布状态
 
 截至项目立项时的公开生态检索，未发现完整的 MoonBit RFC 9421 HTTP Message
 Signatures 实现。**这不是绝对保证**，仅代表立项时检索到的公开信息。
-本项目目前为纯本地、匿名开发状态，未提交、未发布、未参赛。
+项目已公开发布到 GitHub（`xiguaAp6y3/moon-httpsig`）；尚未发布到 Mooncakes
+包仓库，也未创建 Release。
 
 [RFC 9421]: https://www.rfc-editor.org/rfc/rfc9421.html

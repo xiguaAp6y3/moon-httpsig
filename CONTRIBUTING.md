@@ -1,11 +1,12 @@
 # Contributing
 
-本阶段为纯本地开发，不涉及远程仓库与 GitHub PR 流程。以下规则适用于所有
-贡献。
+项目托管在 GitHub（`xiguaAp6y3/moon-httpsig`），欢迎通过 Issue 与 PR 贡献。
+以下规则适用于所有贡献。
 
 ## MoonBit 环境
 
-- MoonBit：`D:\Moonbit\bin\moon.exe`（含 `wasm-gc` / `js` / `native` 目标）。
+- MoonBit：优先从 PATH 使用 `moon`，或通过 `MOON_BIN` 环境变量指定
+  （含 `wasm-gc` / `js` / `native` 目标）。
 - 依赖：`gmlewis/sha256`（已在 `moon.mod` 声明）。
 
 ## 本地验证命令

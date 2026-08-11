@@ -21,8 +21,8 @@ Initial implementation of RFC 9421 HTTP Message Signatures for MoonBit.
 - `httpsig-tool` CLI with stable JSON output.
 - Six runnable examples.
 - HTTP/1.1 text adapter.
-- Test suite: 100 named tests, 200+ table cases, 1400 deterministic property
-  cases, RFC 9421 Appendix B byte-exact vectors.
+- Test suite: 101 named tests, 91 table-driven cases, 1100 deterministic
+  property cases, RFC 9421 Appendix B byte-exact vectors.
 
 ### Notes
 

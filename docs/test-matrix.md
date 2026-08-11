@@ -12,9 +12,9 @@ moon test --target native
 
 | 目标 | check | build | test | 具名测试 | 结果 |
 | --- | --- | --- | --- | --- | --- |
-| wasm-gc | 通过 | 通过 | 通过 | 100 | 0 failed |
-| js | 通过 | 通过 | 通过 | 100 | 0 failed |
-| native | 通过 | 通过 | 通过 | 100 | 0 failed |
+| wasm-gc | 通过 | 通过 | 通过 | 101 | 0 failed |
+| js | 通过 | 通过 | 通过 | 101 | 0 failed |
+| native | 通过 | 通过 | 通过 | 101 | 0 failed |
 
 ## 覆盖维度
 
@@ -45,11 +45,12 @@ moon test --target native
 
 ## 表格案例计数
 
-Structured Field roundtrip/reject 表、Signature-Input 表、model 方法表、
-派生组件表、query-param 表等合计超过 200 个表格案例。
+表驱动测试条目合计 91 个：structured_field 50、ordered_headers 8、
+signature_input 7、negative_matrix 7、rfc9421_examples 6、
+derived_components 9、model 4。
 
 ## 属性测试
 
 固定种子 `0x5EED9421`，生成 1100 组：1000 组完整 sign→parse→rebuild→verify
-→reserialize→reparse 循环，100 组覆盖/未覆盖变更判定，300 组 SI 序列化稳定性。
+→reserialize→reparse 循环（含 SI 序列化稳定性），100 组覆盖/未覆盖变更判定。
 三目标结果一致。
