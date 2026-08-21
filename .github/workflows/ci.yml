@@ -15,6 +15,8 @@ jobs:
       - uses: hustcer/setup-moonbit@v1.22
       - name: Toolchain
         run: moon version --all
+      - name: Resolve dependencies
+        run: moon update
       - name: Format
         run: moon fmt --check
       - name: Public API
