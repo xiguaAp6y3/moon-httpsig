@@ -86,7 +86,8 @@ fn sign_target_raise(
     Err(e) => raise e
   }
   let provider = algorithm_provider(options.algorithm)
-  let signature = match provider.sign(base.bytes, options.key.material) {
+  let signature = match
+    SignatureAlgorithm::sign(provider, base.bytes, options.key.material) {
     Ok(sig) => sig
     Err(e) => raise e
   }

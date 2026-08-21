@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: hustcer/setup-moonbit@v1.22
+      - name: Toolchain
+        run: moon version --all
+      - name: Format
+        run: moon fmt --check
+      - name: Public API
+        run: moon info
+      - name: Strict check
+        run: moon check --target all --deny-warn
+      - name: Build
+        run: moon build --target all
+      - name: Strict tests
+        run: moon test --target all --deny-warn
+      - name: CLI smoke test
+        run: moon run cmd/httpsig-tool version
+      - name: Runnable examples
+        shell: bash
+        run: |
+          set -euo pipefail
+          for example in sign_request verify_request sign_response multiple_signatures replay_policy content_digest_binding; do
+            moon run "examples/$example"
+          done
+      - name: RFC fixtures and package manifest
+        run: |
+          python scripts/count_code.py
+          python scripts/verify_rfc_fixtures.py
+          moon package --list

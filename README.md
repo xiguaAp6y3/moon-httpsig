@@ -5,7 +5,7 @@ and policy toolkit for MoonBit.
 
 > **Project/module**: `xiguaAp6y3/moon-httpsig`
 > **Repository**: https://github.com/xiguaAp6y3/moon-httpsig
-> **Version**: 0.1.0
+> **Version**: 0.1.1
 > **License**: Apache-2.0
 
 ## 中文项目介绍
@@ -97,15 +97,15 @@ git clone https://github.com/xiguaAp6y3/moon-httpsig.git
 cd moon-httpsig
 moon add gmlewis/sha256          # 已写入 moon.mod，无需重复执行
 moon test                        # 运行全部测试（默认目标）
-moon run cmd/httpsig-tool -- --help
+moon run cmd/httpsig-tool help
 ```
 
-三目标验证：
+四目标严格验证：
 
 ```sh
-moon check --target wasm-gc && moon build --target wasm-gc && moon test --target wasm-gc
-moon check --target js && moon build --target js && moon test --target js
-moon check --target native && moon build --target native && moon test --target native
+moon check --target all --deny-warn
+moon build --target all
+moon test --target all --deny-warn
 ```
 
 一键验证脚本：
@@ -180,8 +180,8 @@ digest 已验证、且 `content-digest` 被覆盖组件包含，才能声称 Bod
 ## CLI
 
 ```sh
-moon run cmd/httpsig-tool -- --help
-moon run cmd/httpsig-tool -- --version
+moon run cmd/httpsig-tool help
+moon run cmd/httpsig-tool version
 moon run cmd/httpsig-tool -- parse-input --signature-input 'sig1=("@method" "@target-uri");created=1618884473;keyid="k1"'
 moon run cmd/httpsig-tool -- parse-signature --signature 'sig1=:dGVzdA==:'
 moon run cmd/httpsig-tool -- parse-accept --accept-signature 'a=("@method");created;keyid="k"'
@@ -213,7 +213,7 @@ moon run examples/content_digest_binding
 - 确定性属性测试：1100 组固定种子 sign→verify 循环（1000 组完整循环 +
   100 组覆盖/未覆盖变更判定）；
 - RFC 9421 Appendix B 的 HMAC 示例与签名基示例逐字节通过；
-- `wasm-gc`、`js`、`native` 三目标：`check`/`build`/`test` 均通过，0 errors，
+- `wasm`、`wasm-gc`、`js`、`native` 四目标：`check`/`build`/`test` 均通过，0 errors，
   0 warnings（`reserved_keyword` 因规范要求保留 `method` 字段名而被抑制）。
 
 ## 目录结构
@@ -231,7 +231,8 @@ moon run examples/content_digest_binding
 
 ## Roadmap
 
-- v0.1.0（当前）：RFC 9421 核心、HMAC、策略、CLI、测试。
+- v0.1.1（当前）：终审兼容补丁、严格四目标验证与 CI。
+- v0.1.0：RFC 9421 核心、HMAC、策略、CLI、测试。
 - v0.2.0：完整 RFC 9651 Adapter、更多 HTTP Adapter。
 - v0.3.0：Ed25519 Provider 与远程 Resolver 示例。
 - v0.4.0：Webhook、ActivityPub、API Gateway Profile。
@@ -246,7 +247,7 @@ Apache-2.0，见 [LICENSE](LICENSE)。
 
 截至项目立项时的公开生态检索，未发现完整的 MoonBit RFC 9421 HTTP Message
 Signatures 实现。**这不是绝对保证**，仅代表立项时检索到的公开信息。
-项目已公开发布到 GitHub（`xiguaAp6y3/moon-httpsig`），并已发布到 Mooncakes
-包仓库（`xiguaAp6y3/moon-httpsig@0.1.0`）；尚未创建 GitHub Release。
+项目已公开发布到 GitHub（`xiguaAp6y3/moon-httpsig`）；Mooncakes 当前稳定版为
+`0.1.0`，本次终审补丁发布目标为 `xiguaAp6y3/moon-httpsig@0.1.1`。
 
 [RFC 9421]: https://www.rfc-editor.org/rfc/rfc9421.html

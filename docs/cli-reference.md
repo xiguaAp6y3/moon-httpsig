@@ -12,8 +12,8 @@
 ### --help / --version
 
 ```sh
-moon run cmd/httpsig-tool -- --help
-moon run cmd/httpsig-tool -- --version
+moon run cmd/httpsig-tool help
+moon run cmd/httpsig-tool version
 ```
 
 ### parse-input

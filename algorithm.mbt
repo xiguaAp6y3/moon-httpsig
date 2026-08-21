@@ -122,8 +122,8 @@ pub(all) enum SignatureAlgorithmProvider {
 /// Implements `SignatureAlgorithm` for `SignatureAlgorithmProvider`.
 pub impl SignatureAlgorithm for SignatureAlgorithmProvider with fn name(self) {
   match self {
-    Hmac(h) => h.name()
-    Unsupported(u) => u.name()
+    Hmac(h) => SignatureAlgorithm::name(h)
+    Unsupported(u) => SignatureAlgorithm::name(u)
   }
 }
 
@@ -135,7 +135,7 @@ pub impl SignatureAlgorithm for SignatureAlgorithmProvider with fn sign(
   key,
 ) {
   match self {
-    Hmac(h) => h.sign(message, key)
+    Hmac(h) => SignatureAlgorithm::sign(h, message, key)
     Unsupported(u) => u.sign(message, key)
   }
 }
@@ -149,7 +149,7 @@ pub impl SignatureAlgorithm for SignatureAlgorithmProvider with fn verify(
   key,
 ) {
   match self {
-    Hmac(h) => h.verify(message, signature, key)
+    Hmac(h) => SignatureAlgorithm::verify(h, message, signature, key)
     Unsupported(u) => u.verify(message, signature, key)
   }
 }

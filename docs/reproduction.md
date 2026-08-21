@@ -4,7 +4,7 @@
 
 ## 环境
 
-- Windows 11，`D:\Moonbit\bin\moon.exe`（MoonBit 0.1.20260713）
+- Windows 11，MoonBit 0.1.20260819 或兼容的新版本工具链
 - Python 3（`miniconda3` 或系统 Python）
 - 项目目录 `D:\Moonbit\projects\project8`
 
@@ -20,10 +20,10 @@ cd D:\Moonbit\projects\project8
 # 3. 格式化检查
 moon fmt --check
 
-# 4. 三目标 check / build / test
-moon check --target wasm-gc && moon build --target wasm-gc && moon test --target wasm-gc
-moon check --target js && moon build --target js && moon test --target js
-moon check --target native && moon build --target native && moon test --target native
+# 4. 四目标严格 check / build / test
+moon check --target all --deny-warn
+moon build --target all
+moon test --target all --deny-warn
 
 # 5. 行数统计
 python scripts\count_code.py
@@ -33,7 +33,7 @@ python scripts\generate_rfc_fixtures.py
 python scripts\verify_rfc_fixtures.py
 
 # 7. CLI 冒烟
-moon run cmd/httpsig-tool -- --help
+moon run cmd/httpsig-tool help
 moon run cmd/httpsig-tool -- rfc-example
 # （其余命令见 docs/cli-reference.md）
 

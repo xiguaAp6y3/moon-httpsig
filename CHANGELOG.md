@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 — 2026-08-21
+
+- Updated trait method dispatch for the current MoonBit compiler without changing signing or verification behavior.
+- Added warning-free four-target checks, GitHub Actions CI, and stricter reproducible verification.
+- Refreshed final-acceptance documentation and public release metadata.
+
 ## 0.1.0
 
 Initial implementation of RFC 9421 HTTP Message Signatures for MoonBit.

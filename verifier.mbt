@@ -286,7 +286,7 @@ fn verify_one_label_raise(
     None => raise hs_error(PolicyValidation, MissingKeyId, "keyid is missing")
   }
   limits.check_keyid_length(keyid)
-  let record = match resolver.resolve(keyid) {
+  let record = match KeyResolver::resolve(resolver, keyid) {
     Ok(r) => r
     Err(e) => raise e
   }
@@ -312,7 +312,7 @@ fn verify_one_label_raise(
     }
   }
   // 4. Time checks.
-  let now = clock.now_unix_seconds()
+  let now = Clock::now_unix_seconds(clock)
   let created = p.created
   if created is Some(c) {
     if c > now + policy.allowed_clock_skew_seconds {
@@ -357,7 +357,12 @@ fn verify_one_label_raise(
   // 6. Cryptographic verification.
   let provider = algorithm_provider(algorithm)
   let valid = match
-    provider.verify(base.bytes, signature_bytes, record.material) {
+    SignatureAlgorithm::verify(
+      provider,
+      base.bytes,
+      signature_bytes,
+      record.material,
+    ) {
     Ok(v) => v
     Err(e) => raise e
   }
@@ -371,7 +376,7 @@ fn verify_one_label_raise(
   // 7. Nonce policy.
   if p.nonce is Some(nonce) {
     limits.check_nonce_length(nonce)
-    match nonce_store.check_and_store(keyid, nonce, p.expires) {
+    match NonceStore::check_and_store(nonce_store, keyid, nonce, p.expires) {
       Ok(_) => ()
       Err(e) => raise e
     }
@@ -392,7 +397,7 @@ fn verify_one_label_raise(
       entry.covered_components,
       limits,
     )
-    match binding.validate(headers, body) {
+    match DigestBinding::validate(binding, headers, body) {
       Ok(_) => ()
       Err(e) => raise e
     }

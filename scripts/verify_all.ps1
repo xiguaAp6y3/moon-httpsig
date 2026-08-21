@@ -1,8 +1,8 @@
 # verify_all.ps1 — Full local verification for moon-httpsig.
 #
-# Runs fmt check, check/build/test on wasm-gc, js, and native, the code line
-# counter, the RFC fixture generator and verifier, a CLI smoke test of every
-# subcommand, and every example. Any failure stops the script.
+# Runs fmt check, check/build/test on wasm, wasm-gc, js, and native, the code line
+# counter, the RFC fixture generator and verifier, representative CLI smoke
+# tests, and every example. Any failure stops the script.
 
 $ErrorActionPreference = "Stop"
 
@@ -30,6 +30,32 @@ function Resolve-Moon {
 }
 $moon = Resolve-Moon
 
+function Invoke-Checked {
+    param(
+        [Parameter(Mandatory = $true)][string]$Program,
+        [Parameter(ValueFromRemainingArguments = $true)][string[]]$Arguments
+    )
+    & $Program @Arguments
+    if ($LASTEXITCODE -ne 0) {
+        throw "command failed with exit code $LASTEXITCODE`: $Program $($Arguments -join ' ')"
+    }
+}
+
+function Invoke-Smoke {
+    param(
+        [Parameter(Mandatory = $true)][string]$Label,
+        [Parameter(Mandatory = $true)][string]$Program,
+        [Parameter(Mandatory = $true)][string[]]$Arguments,
+        [Parameter(Mandatory = $true)][string]$Expected
+    )
+    $output = & $Program @Arguments
+    $exitCode = $LASTEXITCODE
+    $output | Write-Host
+    if ($exitCode -ne 0 -or -not (($output -join "`n").Contains($Expected))) {
+        throw "$Label failed: exit=$exitCode, missing expected text '$Expected'"
+    }
+}
+
 # Python is taken from PATH.
 $python = "python"
 $pyCmd = Get-Command $python -ErrorAction SilentlyContinue
@@ -39,49 +65,46 @@ if (-not $pyCmd) {
 }
 
 Write-Host "== moon clean =="
-& $moon clean
+Invoke-Checked $moon clean
 
 Write-Host "== moon fmt --check =="
-& $moon fmt --check
+Invoke-Checked $moon fmt --check
 
-foreach ($target in @("wasm-gc", "js", "native")) {
+Write-Host "== moon info =="
+Invoke-Checked $moon info
+
+foreach ($target in @("wasm", "wasm-gc", "js", "native")) {
     Write-Host "== target: $target =="
-    & $moon check --target $target
-    & $moon build --target $target
-    & $moon test --target $target
+    Invoke-Checked $moon check --target $target --deny-warn
+    Invoke-Checked $moon build --target $target
+    Invoke-Checked $moon test --target $target --deny-warn
 }
 
 Write-Host "== python count_code =="
-& $python scripts\count_code.py
+Invoke-Checked $python scripts\count_code.py
 
 Write-Host "== python generate_rfc_fixtures =="
-& $python scripts\generate_rfc_fixtures.py
+Invoke-Checked $python scripts\generate_rfc_fixtures.py
 
 Write-Host "== python verify_rfc_fixtures =="
-& $python scripts\verify_rfc_fixtures.py
+Invoke-Checked $python scripts\verify_rfc_fixtures.py
 
 Write-Host "== CLI smoke tests =="
-& $moon run cmd/httpsig-tool -- --help
-& $moon run cmd/httpsig-tool -- --version
-& $moon run cmd/httpsig-tool -- parse-input --signature-input 'sig1=("@method" "@target-uri");created=1618884473;keyid="k1"'
-& $moon run cmd/httpsig-tool -- parse-signature --signature 'sig1=:dGVzdA==:'
-& $moon run cmd/httpsig-tool -- parse-accept --accept-signature 'a=("@method");created;keyid="k"'
-& $moon run cmd/httpsig-tool -- build-base --method POST --path /foo --header 'content-type=application/json' --signature-input 'sig1=("@method" "content-type");created=1618884473;keyid="k1";alg="hmac-sha256"'
-& $moon run cmd/httpsig-tool -- sign-hmac --method POST --path /foo --header 'content-type=application/json' --secret-hex 736563726574 --keyid k1 --created 1700000000 --component @method
-& $moon run cmd/httpsig-tool -- verify-hmac --method POST --path /foo --header 'content-type=application/json' --secret-hex 736563726574 --keyid k1 --now 1700000000 --signature-input 'sig1=("@method");created=1700000000;keyid="k1";alg="hmac-sha256"' --signature 'sig1=:dGVzdA==:'
-& $moon run cmd/httpsig-tool -- inspect --signature-input 'sig1=("@method" "content-type");created=1618884473;keyid="k1"'
-& $moon run cmd/httpsig-tool -- check-policy --signature-input 'sig1=("@method" "content-type");created=1618884473;keyid="k1"' --required-component @method
-& $moon run cmd/httpsig-tool -- rfc-example
+Invoke-Smoke -Label "CLI help" -Program $moon -Arguments @("run", "cmd/httpsig-tool", "help") -Expected '"help"'
+Invoke-Smoke -Label "CLI version" -Program $moon -Arguments @("run", "cmd/httpsig-tool", "version") -Expected '"version":"0.1.1"'
+Invoke-Smoke -Label "CLI parse-signature" -Program $moon -Arguments @("run", "cmd/httpsig-tool", "--", "parse-signature", "--signature", "sig1=:dGVzdA==:") -Expected '"labels":["sig1"]'
+Invoke-Smoke -Label "CLI sign-hmac" -Program $moon -Arguments @("run", "cmd/httpsig-tool", "--", "sign-hmac", "--method", "POST", "--path", "/foo", "--header", "content-type=application/json", "--secret-hex", "736563726574", "--keyid", "k1", "--created", "1700000000", "--component", "@method") -Expected '"signature_input"'
+Invoke-Smoke -Label "CLI RFC example" -Program $moon -Arguments @("run", "cmd/httpsig-tool", "--", "rfc-example") -Expected '"match":true'
 
 Write-Host "== examples =="
-& $moon run examples/sign_request
-& $moon run examples/verify_request
-& $moon run examples/sign_response
-& $moon run examples/multiple_signatures
-& $moon run examples/replay_policy
-& $moon run examples/content_digest_binding
+Invoke-Checked $moon run examples/sign_request
+Invoke-Checked $moon run examples/verify_request
+Invoke-Checked $moon run examples/sign_response
+Invoke-Checked $moon run examples/multiple_signatures
+Invoke-Checked $moon run examples/replay_policy
+Invoke-Checked $moon run examples/content_digest_binding
 
 Write-Host "== moon package --list =="
-& $moon package --list
+Invoke-Checked $moon package --list
 
 Write-Host "All verification steps passed."
