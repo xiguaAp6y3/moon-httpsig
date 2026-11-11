@@ -32,7 +32,7 @@ pub struct InMemoryKeyResolver {
 ///|
 /// Constructs an empty in-memory resolver.
 pub fn InMemoryKeyResolver::new() -> InMemoryKeyResolver {
-  { keys: Array::new() }
+  { keys: Array(capacity=0), }
 }
 
 ///|
@@ -99,9 +99,13 @@ pub fn InMemoryKeyResolver::get(
 
 ///|
 /// Returns the number of stored keys.
-pub fn InMemoryKeyResolver::length(self : InMemoryKeyResolver) -> Int {
+pub fn InMemoryKeyResolver::length(self : InMemoryKeyResolver) -> Int32 {
   self.keys.length()
 }
+
+///|
+/// Explicitly promotes `resolve` to an inherent method.
+pub extend InMemoryKeyResolver with KeyResolver::{resolve}
 
 ///|
 /// Implements `KeyResolver` for `InMemoryKeyResolver`.

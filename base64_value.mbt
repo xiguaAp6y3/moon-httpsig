@@ -47,7 +47,7 @@ pub fn hex_encode_bytes(bytes : Bytes) -> String {
 
 ///|
 /// Returns the lowercase hex nibble for a value in 0..15.
-fn hex_nibble(v : Int) -> Byte {
+fn hex_nibble(v : Int32) -> Byte {
   if v < 10 {
     (b'0'.to_int() + v).to_byte()
   } else {
@@ -102,7 +102,7 @@ pub fn hex_decode_bytes(s : String) -> Result[Bytes, HsError] {
 ///|
 /// Returns the numeric value of a hex digit character, or `-1` if absent or
 /// not a hex digit.
-fn hex_digit(c : Char?) -> Int {
+fn hex_digit(c : Char?) -> Int32 {
   match c {
     Some(ch) => {
       let i = ch.to_int()

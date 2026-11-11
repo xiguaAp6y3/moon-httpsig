@@ -30,7 +30,7 @@ fn main {
     alg: Some("hmac-sha256"),
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : @hsig.SignOptions = {
     label: "sig1",

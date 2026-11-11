@@ -22,7 +22,7 @@ test "base_missing_field_rejected" {
 ///|
 test "base_max_components" {
   let req = make_minimal_request()
-  let components : Array[CoveredComponent] = Array::new()
+  let components : Array[CoveredComponent] = Array(capacity=0)
   for i = 0; i < 65; i = i + 1 {
     components.push(covered_field("x-h" + i.to_string()))
   }

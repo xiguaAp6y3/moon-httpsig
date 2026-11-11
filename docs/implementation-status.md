@@ -10,11 +10,11 @@
 - 验证策略、防重放、Content-Digest 绑定、多签名策略；
 - Signer / Verifier；
 - CLI（11 个子命令）；
-- 6 个可执行示例；
+- 7 个可执行示例（含 README 用法示例的完整可运行版本）；
 - HTTP/1.1 文本适配器；
 - RFC 9421 Appendix B 测试向量（HMAC 与签名基逐字节）；
-- 101 个具名测试、91 个表格案例、1100 组属性测试；
-- `wasm-gc` / `js` / `native` 三目标 check/build/test 全部通过；
+- 101 个具名测试（根目录 94 + 适配器 7）、41 条 RFC fixture 表驱动条目、1100 组属性测试；
+- `wasm` / `wasm-gc` / `js` / `native` 四目标 check/build/test 全部通过；
 - 行数统计脚本、RFC fixture 生成/校验脚本、一键验证脚本。
 
 ## 部分完成

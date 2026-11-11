@@ -91,18 +91,18 @@ fn sign_target_raise(
     Ok(sig) => sig
     Err(e) => raise e
   }
-  let input_field = match serialize_signature_input({ entries: [entry] }) {
+  let input_field = match serialize_signature_input({ entries: [entry], }) {
     Ok(s) => s
     Err(e) => raise e
   }
   let sig_field = match
     serialize_signature_field({
-      entries: [{ label: options.label, value: signature }],
+      entries: [{ label: options.label, value: signature, }],
     }) {
     Ok(s) => s
     Err(e) => raise e
   }
-  { signature_input: input_field, signature: sig_field, signature_base: base }
+  { signature_input: input_field, signature: sig_field, signature_base: base, }
 }
 
 ///|

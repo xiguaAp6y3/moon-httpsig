@@ -63,8 +63,8 @@ fn build_signature_base_raise(
       "too many covered components",
     )
   }
-  let lines : Array[String] = Array::new()
-  let seen : Array[String] = Array::new()
+  let lines : Array[String] = Array(capacity=0)
+  let seen : Array[String] = Array(capacity=0)
   for cc in entry.covered_components {
     let component_id = covered_component_string_raise(cc)
     for s in seen {
@@ -95,5 +95,5 @@ fn build_signature_base_raise(
     }
   }
   let bytes = @utf8.encode(text)
-  { bytes, text, lines }
+  { bytes, text, lines, }
 }

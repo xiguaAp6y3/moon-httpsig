@@ -46,7 +46,7 @@ test "response_req_components" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "respsig",
@@ -103,7 +103,7 @@ test "response_tampered_related_request_fails" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "respsig",

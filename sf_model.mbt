@@ -59,37 +59,37 @@ pub(all) struct SfDictionaryEntry {
 ///|
 /// Constructs a parameter with the given name and value.
 pub fn sf_param(name : String, value : SfBareItem) -> SfParameter {
-  { name, value }
+  { name, value, }
 }
 
 ///|
 /// Constructs a bare string item.
 pub fn sf_string(v : String) -> SfItem {
-  { value: SfString(v), parameters: Array::new() }
+  { value: SfString(v), parameters: Array(capacity=0), }
 }
 
 ///|
 /// Constructs a bare token item.
 pub fn sf_token(v : String) -> SfItem {
-  { value: SfToken(v), parameters: Array::new() }
+  { value: SfToken(v), parameters: Array(capacity=0), }
 }
 
 ///|
 /// Constructs a bare integer item.
 pub fn sf_integer(v : Int64) -> SfItem {
-  { value: SfInteger(v), parameters: Array::new() }
+  { value: SfInteger(v), parameters: Array(capacity=0), }
 }
 
 ///|
 /// Constructs a bare boolean item.
 pub fn sf_boolean(v : Bool) -> SfItem {
-  { value: SfBoolean(v), parameters: Array::new() }
+  { value: SfBoolean(v), parameters: Array(capacity=0), }
 }
 
 ///|
 /// Constructs a bare byte-sequence item.
 pub fn sf_bytes(v : Bytes) -> SfItem {
-  { value: SfByteSequence(v), parameters: Array::new() }
+  { value: SfByteSequence(v), parameters: Array(capacity=0), }
 }
 
 ///|

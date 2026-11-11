@@ -241,7 +241,7 @@ fn parse_sf_byte_sequence(c : SfCursor) -> Bytes raise HsError {
       "unterminated byte sequence",
     )
   }
-  let encoded = c.input.sub(start=b64_start, end~).to_owned()
+  let encoded = c.input.exact_view(start=b64_start, end~).to_owned()
   match base64_decode_bytes(encoded) {
     Ok(b) => b
     Err(_) =>
@@ -260,9 +260,9 @@ fn parse_sf_byte_sequence(c : SfCursor) -> Bytes raise HsError {
 /// `parameters = *( ";" *SP parameter )`
 fn parse_sf_parameters(
   c : SfCursor,
-  max_parameter_count : Int,
+  max_parameter_count : Int32,
 ) -> Array[SfParameter] raise HsError {
-  let out : Array[SfParameter] = Array::new()
+  let out : Array[SfParameter] = Array(capacity=0)
   while !c.at_end() {
     if c.peek() != ';' {
       break
@@ -294,7 +294,7 @@ fn parse_sf_parameters(
     } else {
       SfBoolean(true)
     }
-    out.push({ name, value })
+    out.push({ name, value, })
   }
   out
 }
@@ -320,19 +320,19 @@ fn parse_sf_bare_item(c : SfCursor) -> SfBareItem raise HsError {
 /// Parses a single item: bare item plus parameters.
 fn parse_sf_item(
   c : SfCursor,
-  max_parameter_count : Int,
+  max_parameter_count : Int32,
 ) -> SfItem raise HsError {
   let value = parse_sf_bare_item(c)
   let parameters = parse_sf_parameters(c, max_parameter_count)
-  { value, parameters }
+  { value, parameters, }
 }
 
 ///|
 /// Parses an inner list: `"(" *SP [ sf-item *( 1*SP sf-item ) *SP ] ")"`.
 fn parse_sf_inner_list(
   c : SfCursor,
-  max_parameter_count : Int,
-  max_members : Int,
+  max_parameter_count : Int32,
+  max_members : Int32,
 ) -> SfInnerList raise HsError {
   let start = c.pos()
   if c.take() != '(' {
@@ -343,7 +343,7 @@ fn parse_sf_inner_list(
       "expected '(' for inner list",
     )
   }
-  let items = Array::new()
+  let items = Array(capacity=0)
   c.skip_sp()
   if !c.at_end() && c.peek() != ')' {
     while true {
@@ -379,7 +379,7 @@ fn parse_sf_inner_list(
     )
   }
   let parameters = parse_sf_parameters(c, max_parameter_count)
-  { items, parameters }
+  { items, parameters, }
 }
 
 ///|
@@ -388,11 +388,11 @@ fn parse_sf_inner_list(
 /// `sf-dictionary = dict-member *( *SP ";" *SP dict-member )`
 fn parse_sf_dictionary(
   c : SfCursor,
-  max_parameter_count : Int,
-  max_entries : Int,
-  max_members : Int,
+  max_parameter_count : Int32,
+  max_entries : Int32,
+  max_members : Int32,
 ) -> Array[SfDictionaryEntry] raise HsError {
-  let out = Array::new()
+  let out = Array(capacity=0)
   c.skip_sp()
   if c.at_end() {
     return out
@@ -426,9 +426,9 @@ fn parse_sf_dictionary(
         ItemMember(parse_sf_item(c, max_parameter_count))
       }
     } else {
-      ItemMember({ value: SfBoolean(true), parameters: Array::new() })
+      ItemMember({ value: SfBoolean(true), parameters: Array(capacity=0), })
     }
-    out.push({ key, value })
+    out.push({ key, value, })
     c.skip_sp()
     if c.at_end() {
       break

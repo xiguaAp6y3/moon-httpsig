@@ -50,7 +50,7 @@ pub fn RequireCoveredContentDigest::new(
   covered : Array[CoveredComponent],
   limits : Limits,
 ) -> RequireCoveredContentDigest {
-  { covered, limits }
+  { covered, limits, }
 }
 
 ///|
@@ -60,6 +60,10 @@ pub fn CallbackDigestBinding::new(
 ) -> CallbackDigestBinding {
   { callback, }
 }
+
+///|
+/// Explicitly promotes `validate` to an inherent method.
+pub extend NoDigestBinding with DigestBinding::{validate}
 
 ///|
 /// Implements `DigestBinding` for `NoDigestBinding`.
@@ -72,6 +76,10 @@ pub impl DigestBinding for NoDigestBinding with fn validate(
 }
 
 ///|
+/// Explicitly promotes `validate` to an inherent method.
+pub extend RequireCoveredContentDigest with DigestBinding::{validate}
+
+///|
 /// Implements `DigestBinding` for `RequireCoveredContentDigest`.
 pub impl DigestBinding for RequireCoveredContentDigest with fn validate(
   self,
@@ -80,6 +88,10 @@ pub impl DigestBinding for RequireCoveredContentDigest with fn validate(
 ) {
   validate_content_digest(self.covered, headers, body, self.limits)
 }
+
+///|
+/// Explicitly promotes `validate` to an inherent method.
+pub extend CallbackDigestBinding with DigestBinding::{validate}
 
 ///|
 /// Implements `DigestBinding` for `CallbackDigestBinding`.

@@ -95,7 +95,7 @@ pub(all) enum HsErrorKind {
 /// - `context()` is a short, caller-visible description. It never contains
 ///   keys, full signatures, full bodies, or huge header values.
 pub(all) suberror HsError {
-  HsError(HsErrorStage, HsErrorKind, Int, String)
+  HsError(HsErrorStage, HsErrorKind, Int32, String)
 }
 
 ///|
@@ -114,7 +114,7 @@ pub fn hs_error(
 pub fn hs_error_at(
   stage : HsErrorStage,
   kind : HsErrorKind,
-  offset : Int,
+  offset : Int32,
   context : String,
 ) -> HsError {
   HsError(stage, kind, offset, context)
@@ -136,7 +136,7 @@ pub fn HsError::kind(self : HsError) -> HsErrorKind {
 
 ///|
 /// The UTF-8 byte offset, or `0` when not meaningful.
-pub fn HsError::offset(self : HsError) -> Int {
+pub fn HsError::offset(self : HsError) -> Int32 {
   let HsError(_, _, offset, _) = self
   offset
 }

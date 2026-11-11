@@ -50,7 +50,7 @@ test "policy_reject_unknown_parameters" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: [{ name: "custom", value: SfString("x") }],
+    extensions: [{ name: "custom", value: SfString("x"), }],
   }
   let options : SignOptions = {
     label: "sig1",
@@ -90,7 +90,7 @@ test "policy_alg_field_must_match_key" {
     alg: Some("rsa-pss-sha512"),
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "sig1",

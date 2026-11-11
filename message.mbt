@@ -23,7 +23,7 @@ pub(all) struct RequestContext {
 /// `related_request` is optional and enables the `req` component parameter on
 /// response signatures (RFC 9421 §3.2).
 pub(all) struct ResponseContext {
-  status : Int
+  status : Int32
   headers : OrderedHeaders
   body : Bytes?
   related_request : RequestContext?
@@ -77,7 +77,7 @@ fn request_context_build(
     Some(b) => limits.check_body_size_for_digest(b.length())
     None => ()
   }
-  { method, scheme, authority, path, query, headers, body }
+  { method, scheme, authority, path, query, headers, body, }
 }
 
 ///|
@@ -108,7 +108,7 @@ pub fn RequestContext::new_default(
 ///
 /// Status codes must be in 100..=999 and header/body rules match requests.
 pub fn ResponseContext::new(
-  status : Int,
+  status : Int32,
   headers : OrderedHeaders,
   body : Bytes?,
   related_request : RequestContext?,
@@ -120,7 +120,7 @@ pub fn ResponseContext::new(
       Some(b) => limits.check_body_size_for_digest(b.length())
       None => ()
     }
-    Ok({ status, headers, body, related_request })
+    Ok({ status, headers, body, related_request, })
   } catch {
     e => Err(e)
   }
@@ -129,7 +129,7 @@ pub fn ResponseContext::new(
 ///|
 /// Constructs a `ResponseContext` using the default limits.
 pub fn ResponseContext::new_default(
-  status : Int,
+  status : Int32,
   headers : OrderedHeaders,
   body : Bytes?,
   related_request : RequestContext?,

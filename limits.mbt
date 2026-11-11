@@ -9,27 +9,27 @@
 /// Hard resource limits applied while parsing and canonicalizing messages.
 pub(all) struct Limits {
   /// Maximum number of header/trailer fields in one message.
-  max_header_count : Int
+  max_header_count : Int32
   /// Maximum length (UTF-8 bytes) of a single header name.
-  max_header_name_bytes : Int
+  max_header_name_bytes : Int32
   /// Maximum length (UTF-8 bytes) of a single header value.
-  max_header_value_bytes : Int
+  max_header_value_bytes : Int32
   /// Maximum serialized length of a Signature-Input or Signature field.
-  max_signature_field_bytes : Int
+  max_signature_field_bytes : Int32
   /// Maximum number of signature entries in one message.
-  max_signature_count : Int
+  max_signature_count : Int32
   /// Maximum number of covered components in a single signature.
-  max_components_per_signature : Int
+  max_components_per_signature : Int32
   /// Maximum number of parameters on a single item/inner-list/dictionary entry.
-  max_parameter_count : Int
+  max_parameter_count : Int32
   /// Maximum length (UTF-8 bytes) of a keyid string.
-  max_keyid_bytes : Int
+  max_keyid_bytes : Int32
   /// Maximum length (UTF-8 bytes) of a nonce string.
-  max_nonce_bytes : Int
+  max_nonce_bytes : Int32
   /// Maximum length (UTF-8 bytes) of a tag string.
-  max_tag_bytes : Int
+  max_tag_bytes : Int32
   /// Maximum body size (bytes) that is eligible for Content-Digest binding.
-  max_body_bytes_for_digest : Int
+  max_body_bytes_for_digest : Int32
 }
 
 ///|
@@ -91,7 +91,7 @@ pub fn Limits::permissive_for_tests() -> Limits {
 /// Checks that a serialized signature field fits within the configured bound.
 pub fn Limits::check_signature_field_size(
   self : Limits,
-  len : Int,
+  len : Int32,
   what : String,
 ) -> Unit raise HsError {
   if len > self.max_signature_field_bytes {
@@ -107,7 +107,7 @@ pub fn Limits::check_signature_field_size(
 /// Checks a body size against the Content-Digest bound.
 pub fn Limits::check_body_size_for_digest(
   self : Limits,
-  len : Int,
+  len : Int32,
 ) -> Unit raise HsError {
   if len > self.max_body_bytes_for_digest {
     raise hs_error(

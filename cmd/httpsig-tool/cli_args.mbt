@@ -10,7 +10,7 @@
 /// under `name0`, `name1`, ... so that ordered lists survive.
 fn parse_flags(args : Array[String]) -> Map[String, String] {
   let m : Map[String, String] = Map::Map([])
-  let counts : Map[String, Int] = Map::Map([])
+  let counts : Map[String, Int32] = Map::Map([])
   let mut i = 0
   while i < args.length() {
     let a = args[i]
@@ -63,7 +63,7 @@ fn get_flag_i64(m : Map[String, String], name : String) -> Int64? {
 ///|
 /// Returns the argument list excluding the program name.
 fn arg_tail(args : Array[String]) -> Array[String] {
-  let out : Array[String] = Array::new()
+  let out : Array[String] = Array(capacity=0)
   for i = 1; i < args.length(); i = i + 1 {
     out.push(args[i])
   }

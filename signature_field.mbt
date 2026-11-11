@@ -21,7 +21,7 @@ pub(all) struct SignatureField {
 ///|
 /// Creates an empty Signature field.
 pub fn SignatureField::new() -> SignatureField {
-  { entries: Array::new() }
+  { entries: Array(capacity=0), }
 }
 
 ///|
@@ -53,8 +53,8 @@ fn parse_signature_field_raise(
     Ok(d) => d
     Err(e) => raise e
   }
-  let entries : Array[SignatureEntry] = Array::new()
-  let seen : Array[String] = Array::new()
+  let entries : Array[SignatureEntry] = Array(capacity=0)
+  let seen : Array[String] = Array(capacity=0)
   for entry in dict {
     for s in seen {
       if s == entry.key {
@@ -84,7 +84,7 @@ fn parse_signature_field_raise(
           "Signature member must be a Byte Sequence",
         )
     }
-    entries.push({ label: entry.key, value: bytes })
+    entries.push({ label: entry.key, value: bytes, })
   }
   entries
 }
@@ -148,7 +148,7 @@ pub fn append_signature(
     }
   }
   let entries = field.entries
-  entries.push({ label: entry.label, value: entry.value })
+  entries.push({ label: entry.label, value: entry.value, })
   Ok({ entries, })
 }
 
@@ -201,6 +201,6 @@ pub fn validate_signature_labels(
 
 ///|
 /// Returns the number of entries.
-pub fn SignatureField::length(self : SignatureField) -> Int {
+pub fn SignatureField::length(self : SignatureField) -> Int32 {
   self.entries.length()
 }

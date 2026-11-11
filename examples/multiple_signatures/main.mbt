@@ -30,19 +30,19 @@ fn main {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let o1 : @hsig.SignOptions = {
     label: "sig-a",
     components: [@hsig.covered_derived(@hsig.DerivedComponent::Method)],
-    parameters: { ..p, keyid: Some("k1") },
+    parameters: { ..p, keyid: Some("k1"), },
     algorithm: "hmac-sha256",
     key: k1,
   }
   let o2 : @hsig.SignOptions = {
     label: "sig-b",
     components: [@hsig.covered_derived(@hsig.DerivedComponent::Path)],
-    parameters: { ..p, keyid: Some("k2") },
+    parameters: { ..p, keyid: Some("k2"), },
     algorithm: "hmac-sha256",
     key: k2,
   }

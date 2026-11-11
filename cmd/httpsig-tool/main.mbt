@@ -75,7 +75,7 @@ fn params_from_flags(m : Map[String, String]) -> @hsig.SignatureParameters {
     alg: Some("hmac-sha256"),
     nonce,
     tag,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
 }
 
@@ -88,7 +88,7 @@ fn key_from_flags(
   let secret_hex = get_flag(m, "secret-hex", "")
   match @hsig.hex_decode_bytes(secret_hex) {
     Ok(bytes) =>
-      Ok({ keyid, algorithm: "hmac-sha256", material: SharedSecret(bytes) })
+      Ok({ keyid, algorithm: "hmac-sha256", material: SharedSecret(bytes), })
     Err(e) => Err(e)
   }
 }
@@ -114,7 +114,7 @@ fn component_from_string(name : String) -> @hsig.CoveredComponent {
 fn parse_components_flag(
   m : Map[String, String],
 ) -> Array[@hsig.CoveredComponent] {
-  let components : Array[@hsig.CoveredComponent] = Array::new()
+  let components : Array[@hsig.CoveredComponent] = Array(capacity=0)
   let first = match m.get("component") {
     Some(name) => name
     None => ""
@@ -144,7 +144,7 @@ fn cmd_parse_input(m : Map[String, String]) -> String {
   let input = get_flag(m, "signature-input", "")
   match @hsig.parse_signature_input(input, @hsig.Limits::default()) {
     Ok(parsed) => {
-      let labels : Array[Json] = Array::new()
+      let labels : Array[Json] = Array(capacity=0)
       for entry in parsed.entries {
         labels.push(Json::string(entry.label))
       }
@@ -160,7 +160,7 @@ fn cmd_parse_signature(m : Map[String, String]) -> String {
   let input = get_flag(m, "signature", "")
   match @hsig.parse_signature_field(input, @hsig.Limits::default()) {
     Ok(parsed) => {
-      let labels : Array[Json] = Array::new()
+      let labels : Array[Json] = Array(capacity=0)
       for entry in parsed.entries {
         labels.push(Json::string(entry.label))
       }
@@ -176,7 +176,7 @@ fn cmd_parse_accept(m : Map[String, String]) -> String {
   let input = get_flag(m, "accept-signature", "")
   match @hsig.parse_accept_signature(input, @hsig.Limits::default()) {
     Ok(parsed) => {
-      let labels : Array[Json] = Array::new()
+      let labels : Array[Json] = Array(capacity=0)
       for entry in parsed.entries {
         labels.push(Json::string(entry.label))
       }
@@ -298,7 +298,7 @@ fn cmd_verify_hmac(m : Map[String, String]) -> String {
             ) {
             Err(e) => error_json(e)
             Ok(report) => {
-              let labels : Array[Json] = Array::new()
+              let labels : Array[Json] = Array(capacity=0)
               for v in report.verified {
                 labels.push(Json::string(v.label))
               }
@@ -326,7 +326,7 @@ fn cmd_inspect(m : Map[String, String]) -> String {
   match @hsig.parse_signature_input(input_str, @hsig.Limits::default()) {
     Err(e) => error_json(e)
     Ok(parsed) => {
-      let entries : Array[Json] = Array::new()
+      let entries : Array[Json] = Array(capacity=0)
       for entry in parsed.entries {
         entries.push(
           json_object([

@@ -23,7 +23,7 @@ pub(all) struct OrderedHeaders {
 ///|
 /// Creates an empty header set.
 pub fn OrderedHeaders::new() -> OrderedHeaders {
-  { fields: Array::new() }
+  { fields: Array(capacity=0), }
 }
 
 ///|
@@ -57,7 +57,7 @@ fn OrderedHeaders::append_with_trailer_flag(
   try {
     check_header_name(name)
     check_header_value(name, value)
-    self.fields.push({ name, value, trailer })
+    self.fields.push({ name, value, trailer, })
     Ok(())
   } catch {
     e => Err(e)
@@ -94,7 +94,7 @@ pub fn OrderedHeaders::set(
           let _ = self.fields.remove(i)
         } else {
           let f = self.fields[i]
-          self.fields[i] = { name: f.name, value, trailer: f.trailer }
+          self.fields[i] = { name: f.name, value, trailer: f.trailer, }
           replaced = true
           i = i + 1
         }
@@ -103,7 +103,7 @@ pub fn OrderedHeaders::set(
       }
     }
     if !replaced {
-      self.fields.push({ name, value, trailer: false })
+      self.fields.push({ name, value, trailer: false, })
     }
     Ok(())
   } catch {
@@ -144,7 +144,7 @@ pub fn OrderedHeaders::get_all(
   self : OrderedHeaders,
   name : String,
 ) -> Array[String] {
-  let out = Array::new()
+  let out = Array(capacity=0)
   for f in self.fields {
     if f.name.equal_ignore_ascii_case(name) {
       out.push(f.value)
@@ -167,9 +167,9 @@ pub fn OrderedHeaders::contains(self : OrderedHeaders, name : String) -> Bool {
 ///|
 /// Returns all fields in wire order (including trailers).
 pub fn OrderedHeaders::entries(self : OrderedHeaders) -> Array[HeaderField] {
-  let out = Array::new()
+  let out = Array(capacity=0)
   for f in self.fields {
-    out.push({ name: f.name, value: f.value, trailer: f.trailer })
+    out.push({ name: f.name, value: f.value, trailer: f.trailer, })
   }
   out
 }
@@ -180,7 +180,7 @@ pub fn OrderedHeaders::entries(self : OrderedHeaders) -> Array[HeaderField] {
 pub fn OrderedHeaders::header_values(
   self : OrderedHeaders,
 ) -> Array[(String, String)] {
-  let out = Array::new()
+  let out = Array(capacity=0)
   for f in self.fields {
     if !f.trailer {
       out.push((f.name.to_lower(), f.value))
@@ -194,7 +194,7 @@ pub fn OrderedHeaders::header_values(
 pub fn OrderedHeaders::trailer_values(
   self : OrderedHeaders,
 ) -> Array[(String, String)] {
-  let out = Array::new()
+  let out = Array(capacity=0)
   for f in self.fields {
     if f.trailer {
       out.push((f.name.to_lower(), f.value))
@@ -267,6 +267,6 @@ pub fn OrderedHeaders::combined_value_with(
 
 ///|
 /// Returns the number of stored fields.
-pub fn OrderedHeaders::length(self : OrderedHeaders) -> Int {
+pub fn OrderedHeaders::length(self : OrderedHeaders) -> Int32 {
   self.fields.length()
 }

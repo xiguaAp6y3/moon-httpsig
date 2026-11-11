@@ -16,7 +16,7 @@ pub fn constant_time_equal(a : Bytes, b : Bytes) -> Bool {
   let len_a = a.length()
   let len_b = b.length()
   let max_len = if len_a > len_b { len_a } else { len_b }
-  let mut diff : Int = 0
+  let mut diff : Int32 = 0
   for i = 0; i < max_len; i = i + 1 {
     let ba = if i < len_a { a[i].to_int() } else { 0xFF }
     let bb = if i < len_b { b[i].to_int() } else { 0xFF }

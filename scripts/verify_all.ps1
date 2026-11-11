@@ -103,6 +103,7 @@ Invoke-Checked $moon run examples/sign_response
 Invoke-Checked $moon run examples/multiple_signatures
 Invoke-Checked $moon run examples/replay_policy
 Invoke-Checked $moon run examples/content_digest_binding
+Invoke-Checked $moon run examples/readme_snippets
 
 Write-Host "== moon package --list =="
 Invoke-Checked $moon package --list

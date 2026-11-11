@@ -195,7 +195,7 @@ fn check_scheme(scheme : String) -> Unit raise HsError {
 
 ///|
 /// Validates a status code is in the range 100..=999.
-fn check_status(status : Int) -> Unit raise HsError {
+fn check_status(status : Int32) -> Unit raise HsError {
   if status < 100 || status > 999 {
     raise hs_error(
       MessageConstruction,

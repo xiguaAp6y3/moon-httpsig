@@ -13,12 +13,12 @@ pub struct Prng {
 ///|
 /// Constructs a generator from a seed.
 pub fn Prng::new(seed : Int64) -> Prng {
-  { state: seed }
+  { state: seed, }
 }
 
 ///|
 /// Advances the generator and returns a 32-bit pseudo-random value.
-pub fn Prng::next_u32(self : Prng) -> Int {
+pub fn Prng::next_u32(self : Prng) -> Int32 {
   self.state = self.state * 6364136223846793005L + 1442695040888963407L
   let v = (self.state >> 33) & 0x7FFFFFFF
   v.to_int()
@@ -26,7 +26,7 @@ pub fn Prng::next_u32(self : Prng) -> Int {
 
 ///|
 /// Returns a value in `0..bound`.
-pub fn Prng::next_int(self : Prng, bound : Int) -> Int {
+pub fn Prng::next_int(self : Prng, bound : Int32) -> Int32 {
   if bound <= 0 {
     return 0
   }
@@ -68,7 +68,7 @@ pub fn Prng::pick_components(self : Prng) -> Array[CoveredComponent] {
 
 ///|
 /// Generates a request message for a property-test case.
-pub fn Prng::generate_request(self : Prng, case : Int) -> RequestContext {
+pub fn Prng::generate_request(self : Prng, case : Int32) -> RequestContext {
   let methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
   let paths = ["/", "/a", "/foo/bar", "/a%2Fb", "/path with space"]
   let queries : Array[String?] = [
@@ -108,7 +108,7 @@ pub fn Prng::generate_request(self : Prng, case : Int) -> RequestContext {
 /// Generates signing options for a property-test case.
 pub fn Prng::generate_sign_options(
   _self : Prng,
-  case : Int,
+  case : Int32,
   components : Array[CoveredComponent],
 ) -> SignOptions {
   let keyid = "key-" + (case % 4).to_string()
@@ -122,7 +122,7 @@ pub fn Prng::generate_sign_options(
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   {
     label: "sig-prop",

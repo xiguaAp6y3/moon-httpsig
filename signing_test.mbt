@@ -32,7 +32,7 @@ test "signing_rfc_b25_exact" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "sig-b25",
@@ -75,7 +75,7 @@ test "signing_unsupported_algorithm" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "sig1",
@@ -107,7 +107,7 @@ test "signing_with_nonce_tag" {
     alg: Some("hmac-sha256"),
     nonce: Some("nonce-1"),
     tag: Some("app-tag"),
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "sig1",

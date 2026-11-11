@@ -62,7 +62,7 @@ test "verify_multisig_one_fails_one_ok" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options2 : SignOptions = {
     label: "sig2",

@@ -25,7 +25,7 @@ fn main {
     alg: None,
     nonce: Some("unique-nonce-1"),
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : @hsig.SignOptions = {
     label: "sig1",

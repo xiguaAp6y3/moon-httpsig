@@ -97,7 +97,7 @@ test "adapter_verify_attached_request" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : @hsig.SignOptions = {
     label: "sig1",

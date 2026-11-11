@@ -32,7 +32,7 @@ pub struct FixedClock {
 ///|
 /// Constructs a clock fixed at `timestamp`.
 pub fn FixedClock::new(timestamp : Int64) -> FixedClock {
-  { fixed: timestamp }
+  { fixed: timestamp, }
 }
 
 ///|
@@ -42,10 +42,18 @@ pub fn FixedClock::timestamp(self : FixedClock) -> Int64 {
 }
 
 ///|
+/// Explicitly promotes `now_unix_seconds` to an inherent method.
+pub extend SystemClock with Clock::{now_unix_seconds}
+
+///|
 /// Implements `Clock` for `SystemClock` using the host clock.
 pub impl Clock for SystemClock with fn now_unix_seconds(_self) {
   (@env.now() / 1000).reinterpret_as_int64()
 }
+
+///|
+/// Explicitly promotes `now_unix_seconds` to an inherent method.
+pub extend FixedClock with Clock::{now_unix_seconds}
 
 ///|
 /// Implements `Clock` for `FixedClock`.

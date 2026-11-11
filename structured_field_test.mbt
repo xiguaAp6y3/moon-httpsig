@@ -135,7 +135,7 @@ test "sf_boolean_implied_true_serialization" {
   inspect(serialize_sf_item(item).unwrap(), content="?1")
   // A dictionary entry with value ?1 serializes as the bare key.
   let entries : Array[SfDictionaryEntry] = [
-    { key: "flag", value: ItemMember(sf_boolean(true)) },
+    { key: "flag", value: ItemMember(sf_boolean(true)), },
   ]
   inspect(serialize_sf_dictionary(entries).unwrap(), content="flag")
 }

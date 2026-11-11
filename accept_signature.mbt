@@ -43,7 +43,7 @@ pub(all) struct AcceptSignature {
 ///|
 /// Creates an empty Accept-Signature field.
 pub fn AcceptSignature::new() -> AcceptSignature {
-  { entries: Array::new() }
+  { entries: Array(capacity=0), }
 }
 
 ///|
@@ -68,8 +68,8 @@ fn parse_accept_signature_raise(
     Ok(d) => d
     Err(e) => raise e
   }
-  let entries : Array[AcceptSignatureEntry] = Array::new()
-  let seen : Array[String] = Array::new()
+  let entries : Array[AcceptSignatureEntry] = Array(capacity=0)
+  let seen : Array[String] = Array(capacity=0)
   for entry in dict {
     for s in seen {
       if s == entry.key {
@@ -99,7 +99,7 @@ fn parse_accept_signature_raise(
       Ok(r) => r
       Err(e) => raise e
     }
-    entries.push({ label: entry.key, covered_components: components, request })
+    entries.push({ label: entry.key, covered_components: components, request, })
   }
   { entries, }
 }
@@ -117,7 +117,7 @@ pub fn parse_accept_request_parameters(
     let mut alg : String? = None
     let mut nonce : String? = None
     let mut tag : String? = None
-    let extensions : Array[SfParameter] = Array::new()
+    let extensions : Array[SfParameter] = Array(capacity=0)
     for p in params {
       match p.name {
         "created" =>
@@ -184,10 +184,10 @@ pub fn parse_accept_request_parameters(
                 "tag must be a string",
               )
           }
-        _ => extensions.push({ name: p.name, value: p.value })
+        _ => extensions.push({ name: p.name, value: p.value, })
       }
     }
-    Ok({ request_created, request_expires, keyid, alg, nonce, tag, extensions })
+    Ok({ request_created, request_expires, keyid, alg, nonce, tag, extensions, })
   } catch {
     e => Err(e)
   }
@@ -206,34 +206,34 @@ pub fn serialize_accept_signature(
       }
       out.write_string_utf8(entry.label)
       out.write_char_utf8('=')
-      let items : Array[SfItem] = Array::new()
+      let items : Array[SfItem] = Array(capacity=0)
       for cc in entry.covered_components {
         items.push(covered_component_to_sf_item(cc))
       }
-      let parameters : Array[SfParameter] = Array::new()
+      let parameters : Array[SfParameter] = Array(capacity=0)
       let r = entry.request
       if r.request_created {
-        parameters.push({ name: "created", value: SfBoolean(true) })
+        parameters.push({ name: "created", value: SfBoolean(true), })
       }
       if r.request_expires {
-        parameters.push({ name: "expires", value: SfBoolean(true) })
+        parameters.push({ name: "expires", value: SfBoolean(true), })
       }
       if r.keyid is Some(v) {
-        parameters.push({ name: "keyid", value: SfString(v) })
+        parameters.push({ name: "keyid", value: SfString(v), })
       }
       if r.alg is Some(v) {
-        parameters.push({ name: "alg", value: SfString(v) })
+        parameters.push({ name: "alg", value: SfString(v), })
       }
       if r.nonce is Some(v) {
-        parameters.push({ name: "nonce", value: SfString(v) })
+        parameters.push({ name: "nonce", value: SfString(v), })
       }
       if r.tag is Some(v) {
-        parameters.push({ name: "tag", value: SfString(v) })
+        parameters.push({ name: "tag", value: SfString(v), })
       }
       for e in r.extensions {
-        parameters.push({ name: e.name, value: e.value })
+        parameters.push({ name: e.name, value: e.value, })
       }
-      let il = { items, parameters }
+      let il = { items, parameters, }
       out.write_string_utf8(serialize_sf_inner_list_raise(il))
     }
     Ok(buffer_to_string(out))

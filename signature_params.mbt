@@ -34,7 +34,7 @@ pub fn SignatureParameters::new() -> SignatureParameters {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
 }
 
@@ -63,7 +63,7 @@ fn parse_signature_parameters_raise(
   let mut alg : String? = None
   let mut nonce : String? = None
   let mut tag : String? = None
-  let extensions : Array[SfParameter] = Array::new()
+  let extensions : Array[SfParameter] = Array(capacity=0)
   for p in params {
     match p.name {
       "created" =>
@@ -180,10 +180,10 @@ fn parse_signature_parameters_raise(
               "tag must be a string",
             )
         }
-      _ => extensions.push({ name: p.name, value: p.value })
+      _ => extensions.push({ name: p.name, value: p.value, })
     }
   }
-  { created, expires, keyid, alg, nonce, tag, extensions }
+  { created, expires, keyid, alg, nonce, tag, extensions, }
 }
 
 ///|

@@ -61,7 +61,7 @@ fn rfc_params(
     alg: None,
     nonce,
     tag,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
 }
 
@@ -71,7 +71,7 @@ fn entry_of(
   components : Array[CoveredComponent],
   params : SignatureParameters,
 ) -> SignatureInputEntry {
-  { label, covered_components: components, parameters: params }
+  { label, covered_components: components, parameters: params, }
 }
 
 ///|
@@ -79,7 +79,7 @@ test "rfc_b21_signature_base" {
   let req = rfc_test_request()
   let entry = entry_of(
     "sig-b21",
-    Array::new(),
+    Array(capacity=0),
     rfc_params(
       1618884473L,
       "test-key-rsa-pss",
@@ -119,7 +119,7 @@ test "rfc_b22_signature_base" {
   let base = build_request_signature_base(req, entry, Limits::default()).unwrap()
   let expected = "\"@authority\": example.com\n\"content-digest\": sha-512=:WZDPaVn/7XgHaAy8pmojAkGWoRx2UFChF41A2svX+TaPm+AbwAgBWnrIiYllu7BNNyealdVLvRwEmTHWXvJwew==:\n\"@query-param\";name=\"Pet\": dog\n\"@signature-params\": (\"@authority\" \"content-digest\" \"@query-param\";name=\"Pet\");created=1618884473;keyid=\"test-key-rsa-pss\";tag=\"header-example\""
   inspect(base.text, content=expected)
-  let input_serialized = serialize_signature_input({ entries: [entry] }).unwrap()
+  let input_serialized = serialize_signature_input({ entries: [entry], }).unwrap()
   inspect(
     input_serialized,
     content="sig-b22=(\"@authority\" \"content-digest\" \"@query-param\";name=\"Pet\");created=1618884473;keyid=\"test-key-rsa-pss\";tag=\"header-example\"",
@@ -203,7 +203,7 @@ test "rfc_b25_signature_base_and_hmac" {
     content="pxcQw6G3AjtMBQjwo8XzkZf/bws5LelbaMk5rGIGtE8=",
   )
   // Exact Signature-Input and Signature strings.
-  let input_serialized = serialize_signature_input({ entries: [entry] }).unwrap()
+  let input_serialized = serialize_signature_input({ entries: [entry], }).unwrap()
   inspect(
     input_serialized,
     content="sig-b25=(\"date\" \"@authority\" \"content-type\");created=1618884473;keyid=\"test-shared-secret\"",
@@ -288,7 +288,7 @@ test "rfc_signature_input_strings_exact" {
   let cases = [
     (
       "sig-b21",
-      Array::new(),
+      Array(capacity=0),
       rfc_params(
         1618884473L,
         "test-key-rsa-pss",
@@ -370,7 +370,7 @@ test "rfc_signature_input_strings_exact" {
       covered_components: components,
       parameters: params,
     }
-    let serialized = serialize_signature_input({ entries: [entry] }).unwrap()
+    let serialized = serialize_signature_input({ entries: [entry], }).unwrap()
     inspect(serialized, content=expected)
   }
 }

@@ -3,15 +3,16 @@
 本文件由真实测试结果更新。执行：
 
 ```sh
-moon test --target wasm-gc
-moon test --target js
-moon test --target native
+moon check --target all --deny-warn
+moon build --target all
+moon test --target all --deny-warn
 ```
 
-## 结果（最近一次全量）
+## 结果（最近一次全量，moon 0.1.20261104 / moonc v0.10.20）
 
 | 目标 | check | build | test | 具名测试 | 结果 |
 | --- | --- | --- | --- | --- | --- |
+| wasm | 通过 | 通过 | 通过 | 101 | 0 failed |
 | wasm-gc | 通过 | 通过 | 通过 | 101 | 0 failed |
 | js | 通过 | 通过 | 通过 | 101 | 0 failed |
 | native | 通过 | 通过 | 通过 | 101 | 0 failed |

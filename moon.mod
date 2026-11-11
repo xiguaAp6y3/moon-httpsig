@@ -26,4 +26,4 @@ import {
   "gmlewis/sha256@0.17.32",
 }
 
-warnings = "-reserved_keyword"
+warnings = "-reserved_keyword-result_error_return-test_unqualified_package"

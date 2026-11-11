@@ -104,7 +104,7 @@ fn parse_component_parameters_raise(
         )
     }
   }
-  { sf, key, bs, tr, req, name }
+  { sf, key, bs, tr, req, name, }
 }
 
 ///|
@@ -315,7 +315,7 @@ pub fn parse_covered_component(
     }
   } else {
     // Field component.
-    let field = { name: token, parameters: params }
+    let field = { name: token, parameters: params, }
     let cc = Field(field)
     match validate_component_combination(cc) {
       Ok(_) => Ok(cc)
@@ -353,42 +353,42 @@ fn ok_derived_params(
 pub fn covered_component_to_sf_item(component : CoveredComponent) -> SfItem {
   match component {
     Derived(QueryParam(name), params) => {
-      let parameters : Array[SfParameter] = Array::new()
-      parameters.push({ name: "name", value: SfString(name) })
+      let parameters : Array[SfParameter] = Array(capacity=0)
+      parameters.push({ name: "name", value: SfString(name), })
       if params.req {
-        parameters.push({ name: "req", value: SfBoolean(true) })
+        parameters.push({ name: "req", value: SfBoolean(true), })
       }
-      { value: SfString("@query-param"), parameters }
+      { value: SfString("@query-param"), parameters, }
     }
     Derived(d, params) => {
-      let parameters : Array[SfParameter] = Array::new()
+      let parameters : Array[SfParameter] = Array(capacity=0)
       if params.req {
-        parameters.push({ name: "req", value: SfBoolean(true) })
+        parameters.push({ name: "req", value: SfBoolean(true), })
       }
-      { value: SfString(derived_component_name(d)), parameters }
+      { value: SfString(derived_component_name(d)), parameters, }
     }
     Field(f) => {
       let p = f.parameters
-      let parameters : Array[SfParameter] = Array::new()
+      let parameters : Array[SfParameter] = Array(capacity=0)
       if p.sf {
-        parameters.push({ name: "sf", value: SfBoolean(true) })
+        parameters.push({ name: "sf", value: SfBoolean(true), })
       }
       if p.key is Some(k) {
-        parameters.push({ name: "key", value: SfString(k) })
+        parameters.push({ name: "key", value: SfString(k), })
       }
       if p.bs {
-        parameters.push({ name: "bs", value: SfBoolean(true) })
+        parameters.push({ name: "bs", value: SfBoolean(true), })
       }
       if p.tr {
-        parameters.push({ name: "tr", value: SfBoolean(true) })
+        parameters.push({ name: "tr", value: SfBoolean(true), })
       }
       if p.req {
-        parameters.push({ name: "req", value: SfBoolean(true) })
+        parameters.push({ name: "req", value: SfBoolean(true), })
       }
       if p.name is Some(n) {
-        parameters.push({ name: "name", value: SfString(n) })
+        parameters.push({ name: "name", value: SfString(n), })
       }
-      { value: SfString(f.name), parameters }
+      { value: SfString(f.name), parameters, }
     }
   }
 }
@@ -397,7 +397,7 @@ pub fn covered_component_to_sf_item(component : CoveredComponent) -> SfItem {
 /// Parses a covered-components inner list into an ordered array.
 pub fn parse_covered_components(
   items : Array[SfItem],
-  max_components : Int,
+  max_components : Int32,
 ) -> Result[Array[CoveredComponent], HsError] {
   if items.length() > max_components {
     return Err(
@@ -408,7 +408,7 @@ pub fn parse_covered_components(
       ),
     )
   }
-  let out : Array[CoveredComponent] = Array::new()
+  let out : Array[CoveredComponent] = Array(capacity=0)
   for item in items {
     match parse_covered_component(item) {
       Ok(cc) => out.push(cc)

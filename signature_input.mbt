@@ -22,7 +22,7 @@ pub(all) struct SignatureInput {
 ///|
 /// Creates an empty Signature-Input field.
 pub fn SignatureInput::new() -> SignatureInput {
-  { entries: Array::new() }
+  { entries: Array(capacity=0), }
 }
 
 ///|
@@ -54,8 +54,8 @@ fn parse_signature_input_raise(
     Ok(d) => d
     Err(e) => raise e
   }
-  let entries : Array[SignatureInputEntry] = Array::new()
-  let seen : Array[String] = Array::new()
+  let entries : Array[SignatureInputEntry] = Array(capacity=0)
+  let seen : Array[String] = Array(capacity=0)
   for entry in dict {
     for s in seen {
       if s == entry.key {
@@ -127,13 +127,13 @@ fn serialize_signature_input_raise(
 fn serialize_entry_inner_list_raise(
   entry : SignatureInputEntry,
 ) -> String raise HsError {
-  let items : Array[SfItem] = Array::new()
+  let items : Array[SfItem] = Array(capacity=0)
   for cc in entry.covered_components {
     items.push(covered_component_to_sf_item(cc))
   }
-  let parameters : Array[SfParameter] = Array::new()
+  let parameters : Array[SfParameter] = Array(capacity=0)
   signature_parameters_to_sf_params(entry.parameters, parameters)
-  let il = { items, parameters }
+  let il = { items, parameters, }
   serialize_sf_inner_list_raise(il)
 }
 
@@ -144,25 +144,25 @@ fn signature_parameters_to_sf_params(
   out : Array[SfParameter],
 ) -> Unit {
   if params.created is Some(v) {
-    out.push({ name: "created", value: SfInteger(v) })
+    out.push({ name: "created", value: SfInteger(v), })
   }
   if params.expires is Some(v) {
-    out.push({ name: "expires", value: SfInteger(v) })
+    out.push({ name: "expires", value: SfInteger(v), })
   }
   if params.keyid is Some(v) {
-    out.push({ name: "keyid", value: SfString(v) })
+    out.push({ name: "keyid", value: SfString(v), })
   }
   if params.nonce is Some(v) {
-    out.push({ name: "nonce", value: SfString(v) })
+    out.push({ name: "nonce", value: SfString(v), })
   }
   if params.alg is Some(v) {
-    out.push({ name: "alg", value: SfString(v) })
+    out.push({ name: "alg", value: SfString(v), })
   }
   if params.tag is Some(v) {
-    out.push({ name: "tag", value: SfString(v) })
+    out.push({ name: "tag", value: SfString(v), })
   }
   for e in params.extensions {
-    out.push({ name: e.name, value: e.value })
+    out.push({ name: e.name, value: e.value, })
   }
 }
 

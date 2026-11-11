@@ -35,13 +35,16 @@ pub struct InMemoryNonceStore {
 ///|
 /// Constructs an empty in-memory nonce store.
 pub fn InMemoryNonceStore::new() -> InMemoryNonceStore {
-  { entries: Array::new() }
+  { entries: Array(capacity=0), }
 }
 
 ///|
 /// Removes entries whose `expires` time is in the past (relative to `now`).
 /// Returns the number of entries removed.
-pub fn InMemoryNonceStore::prune(self : InMemoryNonceStore, now : Int64) -> Int {
+pub fn InMemoryNonceStore::prune(
+  self : InMemoryNonceStore,
+  now : Int64,
+) -> Int32 {
   let mut removed = 0
   let mut i = 0
   while i < self.entries.length() {
@@ -58,9 +61,13 @@ pub fn InMemoryNonceStore::prune(self : InMemoryNonceStore, now : Int64) -> Int 
 
 ///|
 /// Returns the number of stored nonces.
-pub fn InMemoryNonceStore::length(self : InMemoryNonceStore) -> Int {
+pub fn InMemoryNonceStore::length(self : InMemoryNonceStore) -> Int32 {
   self.entries.length()
 }
+
+///|
+/// Explicitly promotes `check_and_store` to an inherent method.
+pub extend InMemoryNonceStore with NonceStore::{check_and_store}
 
 ///|
 /// Implements `NonceStore` for `InMemoryNonceStore`.
@@ -81,6 +88,6 @@ pub impl NonceStore for InMemoryNonceStore with fn check_and_store(
       )
     }
   }
-  self.entries.push({ keyid, nonce, expires })
+  self.entries.push({ keyid, nonce, expires, })
   Ok(())
 }

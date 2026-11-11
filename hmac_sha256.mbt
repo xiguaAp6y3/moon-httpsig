@@ -98,6 +98,10 @@ pub fn HmacSha256::verify_hmac(
 }
 
 ///|
+/// Explicitly promotes the `SignatureAlgorithm` methods to inherent methods.
+pub extend HmacSha256 with SignatureAlgorithm::{name, sign, verify}
+
+///|
 /// Implements `SignatureAlgorithm` for `HmacSha256`.
 pub impl SignatureAlgorithm for HmacSha256 with fn name(_self) {
   "hmac-sha256"

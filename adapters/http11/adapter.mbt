@@ -111,7 +111,7 @@ pub fn parse_http11_request(
 ///|
 /// Splits a message into lines.
 fn split_lines(text : String) -> Array[String] {
-  let out : Array[String] = Array::new()
+  let out : Array[String] = Array(capacity=0)
   let mut cur = ""
   for ch in text {
     if ch == '\n' {
@@ -131,7 +131,7 @@ fn split_lines(text : String) -> Array[String] {
 
 ///|
 /// Returns the index of the blank line that separates headers from body.
-fn find_body_start(lines : Array[String]) -> Int {
+fn find_body_start(lines : Array[String]) -> Int32 {
   for i, line in lines {
     if i >= 1 && line.is_empty() {
       return i + 1
@@ -224,6 +224,10 @@ pub fn Http11Sha256DigestBinding::new(
 ) -> Http11Sha256DigestBinding {
   { covered, }
 }
+
+///|
+/// Explicitly promotes `validate` to an inherent method.
+pub extend Http11Sha256DigestBinding with @hsig.DigestBinding::{validate}
 
 ///|
 /// Implements the library's `DigestBinding` trait using RFC 9530 sha-256.

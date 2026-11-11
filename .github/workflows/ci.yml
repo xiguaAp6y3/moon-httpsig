@@ -1,5 +1,12 @@
 name: CI
 
+# Verified baseline toolchain (2026-11-11): moon 0.1.20261104 /
+# moonc v0.10.20+65efd5b93 / moonrun 0.1.20261104.
+# setup-moonbit installs the latest released toolchain, so this workflow keeps
+# exercising the supported targets (wasm, wasm-gc, js, native) against new
+# toolchains and surfaces compatibility regressions early. If it goes red after
+# a toolchain bump, re-run the flow in README "工具链兼容性说明".
+
 on:
   push:
   pull_request:
@@ -33,11 +40,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for example in sign_request verify_request sign_response multiple_signatures replay_policy content_digest_binding; do
+          for example in sign_request verify_request sign_response multiple_signatures replay_policy content_digest_binding readme_snippets; do
             moon run "examples/$example"
           done
       - name: RFC fixtures and package manifest
         run: |
-          python scripts/count_code.py
-          python scripts/verify_rfc_fixtures.py
+          python3 scripts/count_code.py
+          python3 scripts/verify_rfc_fixtures.py
           moon package --list

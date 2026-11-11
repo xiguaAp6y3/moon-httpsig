@@ -12,18 +12,18 @@
 /// A forward-only cursor over a string being parsed as a structured field.
 priv struct SfCursor {
   input : String
-  mut offset : Int
+  mut offset : Int32
 }
 
 ///|
 /// Creates a cursor positioned at the start of `input`.
 fn SfCursor::new(input : String) -> SfCursor {
-  { input, offset: 0 }
+  { input, offset: 0, }
 }
 
 ///|
 /// Returns the current offset in code units.
-fn SfCursor::pos(self : SfCursor) -> Int {
+fn SfCursor::pos(self : SfCursor) -> Int32 {
   self.offset
 }
 
@@ -76,8 +76,8 @@ fn SfCursor::skip_sp(self : SfCursor) -> Unit raise HsError {
 
 ///|
 /// Returns the substring consumed since `start` as an owned string.
-fn SfCursor::slice_from(self : SfCursor, start : Int) -> String {
-  self.input.sub(start~, end=self.offset).to_owned()
+fn SfCursor::slice_from(self : SfCursor, start : Int32) -> String {
+  self.input.exact_view(start~, end=self.offset).to_owned()
 }
 
 ///|

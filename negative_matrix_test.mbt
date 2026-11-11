@@ -182,7 +182,7 @@ test "neg_nonce_replay" {
     alg: None,
     nonce: Some("same-nonce"),
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "sig1",
@@ -312,7 +312,7 @@ test "neg_empty_shared_secret" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "sig1",
@@ -368,7 +368,7 @@ test "neg_query_param_modified" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "sig1",
@@ -415,7 +415,7 @@ test "neg_method_modified" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "sig1",
@@ -471,7 +471,7 @@ test "neg_trailer_modified_when_covered" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "sig1",
@@ -533,7 +533,7 @@ test "neg_uncovered_header_change_ok" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "sig1",
@@ -592,7 +592,7 @@ test "neg_body_digest_policy_rejects_tamper" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "sig1",
@@ -654,7 +654,7 @@ test "neg_signature_expired" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "sig1",

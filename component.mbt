@@ -70,7 +70,7 @@ pub(all) enum CoveredComponent {
 ///|
 /// The default component parameters (all unset).
 pub fn ComponentParameters::default() -> ComponentParameters {
-  { sf: false, key: None, bs: false, tr: false, req: false, name: None }
+  { sf: false, key: None, bs: false, tr: false, req: false, name: None, }
 }
 
 ///|
@@ -91,7 +91,7 @@ pub fn covered_derived_with_params(
 ///|
 /// Constructs a field covered component with default parameters.
 pub fn covered_field(name : String) -> CoveredComponent {
-  Field({ name, parameters: ComponentParameters::default() })
+  Field({ name, parameters: ComponentParameters::default(), })
 }
 
 ///|
@@ -100,7 +100,7 @@ pub fn covered_field_with_params(
   name : String,
   parameters : ComponentParameters,
 ) -> CoveredComponent {
-  Field({ name, parameters })
+  Field({ name, parameters, })
 }
 
 ///|

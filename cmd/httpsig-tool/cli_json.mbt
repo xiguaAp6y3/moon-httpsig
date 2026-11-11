@@ -13,7 +13,7 @@ fn json_object(pairs : Array[(String, Json)]) -> Json {
 ///|
 /// Builds a success JSON object with extra fields.
 fn ok_json(extra : Array[(String, Json)]) -> String {
-  let all : Array[(String, Json)] = Array::new()
+  let all : Array[(String, Json)] = Array(capacity=0)
   all.push(("ok", Json::boolean(true)))
   for _, pair in extra {
     all.push(pair)
@@ -50,7 +50,7 @@ fn component_json(cc : @hsig.CoveredComponent) -> Json {
 ///|
 /// Converts a component list to JSON.
 fn components_json(components : Array[@hsig.CoveredComponent]) -> Json {
-  let arr : Array[Json] = Array::new()
+  let arr : Array[Json] = Array(capacity=0)
   for c in components {
     arr.push(component_json(c))
   }

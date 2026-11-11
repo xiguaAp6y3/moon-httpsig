@@ -156,13 +156,13 @@ fn verify_all_raise(
   if input.entries.length() > limits.max_signature_count {
     raise hs_error(PolicyValidation, TooManySignatures, "too many signatures")
   }
-  let verified : Array[VerifiedSignature] = Array::new()
-  let rejected : Array[RejectedSignature] = Array::new()
+  let verified : Array[VerifiedSignature] = Array(capacity=0)
+  let rejected : Array[RejectedSignature] = Array(capacity=0)
   for entry in input.entries {
     let sig = match get_signature(field, entry.label) {
       Ok(b) => b
       Err(e) => {
-        rejected.push({ label: Some(entry.label), error: e })
+        rejected.push({ label: Some(entry.label), error: e, })
         continue
       }
     }
@@ -172,7 +172,7 @@ fn verify_all_raise(
       )
       verified.push(v)
     } catch {
-      e => rejected.push({ label: Some(entry.label), error: e })
+      e => rejected.push({ label: Some(entry.label), error: e, })
     }
   }
   let ok = match multi {
@@ -196,7 +196,7 @@ fn verify_all_raise(
       "multi-signature policy not satisfied",
     )
   }
-  { verified, rejected }
+  { verified, rejected, }
 }
 
 ///|
@@ -417,5 +417,5 @@ fn verify_one_label_raise(
 ///|
 /// Convenience: an empty verification report.
 pub fn empty_report() -> VerificationReport {
-  { verified: Array::new(), rejected: Array::new() }
+  { verified: Array(capacity=0), rejected: Array(capacity=0), }
 }

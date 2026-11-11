@@ -41,7 +41,7 @@ pub(all) struct VerificationPolicy {
 pub fn VerificationPolicy::hmac_only() -> VerificationPolicy {
   {
     allowed_algorithms: ["hmac-sha256"],
-    required_components: Array::new(),
+    required_components: Array(capacity=0),
     require_created: true,
     require_expires: false,
     require_keyid: true,
@@ -63,7 +63,7 @@ pub fn VerificationPolicy::hmac_only() -> VerificationPolicy {
 pub fn VerificationPolicy::permissive() -> VerificationPolicy {
   {
     allowed_algorithms: ["hmac-sha256"],
-    required_components: Array::new(),
+    required_components: Array(capacity=0),
     require_created: false,
     require_expires: false,
     require_keyid: false,

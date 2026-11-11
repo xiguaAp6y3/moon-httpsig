@@ -83,6 +83,12 @@ pub fn UnsupportedAlgorithm::verify(
 }
 
 ///|
+/// Explicitly promotes `name` to an inherent method. `sign` and `verify` are
+/// already inherent methods on `UnsupportedAlgorithm`, so they are not
+/// promoted here.
+pub extend UnsupportedAlgorithm with SignatureAlgorithm::{name}
+
+///|
 /// Implements `SignatureAlgorithm` for `UnsupportedAlgorithm`.
 pub impl SignatureAlgorithm for UnsupportedAlgorithm with fn name(self) {
   self.algorithm
@@ -116,6 +122,14 @@ pub impl SignatureAlgorithm for UnsupportedAlgorithm with fn verify(
 pub(all) enum SignatureAlgorithmProvider {
   Hmac(HmacSha256)
   Unsupported(UnsupportedAlgorithm)
+}
+
+///|
+/// Explicitly promotes the `SignatureAlgorithm` methods to inherent methods.
+pub extend SignatureAlgorithmProvider with SignatureAlgorithm::{
+  name,
+  sign,
+  verify,
 }
 
 ///|

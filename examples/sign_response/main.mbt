@@ -26,7 +26,7 @@ fn main {
   }
   let req_method = @hsig.covered_derived_with_params(
     @hsig.DerivedComponent::Method,
-    { sf: false, key: None, bs: false, tr: false, req: true, name: None },
+    { sf: false, key: None, bs: false, tr: false, req: true, name: None, },
   )
   let params : @hsig.SignatureParameters = {
     created: Some(1700000000L),
@@ -35,7 +35,7 @@ fn main {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : @hsig.SignOptions = {
     label: "respsig",

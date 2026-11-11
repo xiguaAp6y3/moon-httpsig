@@ -75,7 +75,7 @@ test "digest_policy_in_verifier" {
     alg: None,
     nonce: None,
     tag: None,
-    extensions: Array::new(),
+    extensions: Array(capacity=0),
   }
   let options : SignOptions = {
     label: "sig1",

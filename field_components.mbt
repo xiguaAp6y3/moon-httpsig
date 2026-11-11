@@ -80,7 +80,7 @@ fn field_values_for(
   name : String,
   tr : Bool,
 ) -> Array[String] {
-  let out : Array[String] = Array::new()
+  let out : Array[String] = Array(capacity=0)
   for f in headers.entries() {
     if f.name.equal_ignore_ascii_case(name) && f.trailer == tr {
       out.push(f.value)

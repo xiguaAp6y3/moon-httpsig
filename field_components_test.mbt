@@ -43,7 +43,7 @@ test "field_key_member" {
     name: None,
   }
   inspect(
-    resolve_field_component({ name: "x-dict", parameters: params }, target).unwrap(),
+    resolve_field_component({ name: "x-dict", parameters: params, }, target).unwrap(),
     content="2;x=1",
   )
   let missing : ComponentParameters = {
@@ -55,7 +55,7 @@ test "field_key_member" {
     name: None,
   }
   match
-    resolve_field_component({ name: "x-dict", parameters: missing }, target) {
+    resolve_field_component({ name: "x-dict", parameters: missing, }, target) {
     Ok(_) => abort("missing key must fail")
     Err(e) => inspect(e.kind_name(), content="MissingComponent")
   }
@@ -77,7 +77,7 @@ test "field_bs_binary_wrapped" {
     name: None,
   }
   inspect(
-    resolve_field_component({ name: "x-bin", parameters: params }, target).unwrap(),
+    resolve_field_component({ name: "x-bin", parameters: params, }, target).unwrap(),
     content="(:aGVsbG8=: :d29ybGQ=:)",
   )
 }
@@ -96,7 +96,8 @@ test "field_bs_invalid_base64" {
     req: false,
     name: None,
   }
-  match resolve_field_component({ name: "x-bin", parameters: params }, target) {
+  match
+    resolve_field_component({ name: "x-bin", parameters: params, }, target) {
     Ok(_) => abort("invalid base64 in bs must fail")
     Err(e) => inspect(e.kind_name(), content="InvalidBase64")
   }
@@ -118,7 +119,7 @@ test "field_trailer_tr_flag" {
     name: None,
   }
   inspect(
-    resolve_field_component({ name: "x-t", parameters: params_header }, target).unwrap(),
+    resolve_field_component({ name: "x-t", parameters: params_header, }, target).unwrap(),
     content="header-value",
   )
   let _params_trailer : ComponentParameters = {
@@ -139,7 +140,7 @@ test "field_trailer_tr_flag" {
     name: None,
   }
   inspect(
-    resolve_field_component({ name: "x-t", parameters: params_tr }, target).unwrap(),
+    resolve_field_component({ name: "x-t", parameters: params_tr, }, target).unwrap(),
     content="trailer-value",
   )
 }
@@ -170,7 +171,7 @@ test "field_req_from_related_request" {
     name: None,
   }
   inspect(
-    resolve_field_component({ name: "x-req", parameters: params }, target).unwrap(),
+    resolve_field_component({ name: "x-req", parameters: params, }, target).unwrap(),
     content="response-value",
   )
   let params_req : ComponentParameters = {
@@ -182,7 +183,7 @@ test "field_req_from_related_request" {
     name: None,
   }
   inspect(
-    resolve_field_component({ name: "x-req", parameters: params_req }, target).unwrap(),
+    resolve_field_component({ name: "x-req", parameters: params_req, }, target).unwrap(),
     content="request-value",
   )
 }
@@ -201,7 +202,7 @@ test "field_req_missing_related" {
     name: None,
   }
   match
-    resolve_field_component({ name: "x-any", parameters: params_req }, target) {
+    resolve_field_component({ name: "x-any", parameters: params_req, }, target) {
     Ok(_) => abort("req without related request must fail")
     Err(e) => inspect(e.kind_name(), content="MissingComponent")
   }
