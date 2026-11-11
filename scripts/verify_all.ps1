@@ -91,7 +91,7 @@ Invoke-Checked $python scripts\verify_rfc_fixtures.py
 
 Write-Host "== CLI smoke tests =="
 Invoke-Smoke -Label "CLI help" -Program $moon -Arguments @("run", "cmd/httpsig-tool", "help") -Expected '"help"'
-Invoke-Smoke -Label "CLI version" -Program $moon -Arguments @("run", "cmd/httpsig-tool", "version") -Expected '"version":"0.1.1"'
+Invoke-Smoke -Label "CLI version" -Program $moon -Arguments @("run", "cmd/httpsig-tool", "version") -Expected '"version":"0.1.2"'
 Invoke-Smoke -Label "CLI parse-signature" -Program $moon -Arguments @("run", "cmd/httpsig-tool", "--", "parse-signature", "--signature", "sig1=:dGVzdA==:") -Expected '"labels":["sig1"]'
 Invoke-Smoke -Label "CLI sign-hmac" -Program $moon -Arguments @("run", "cmd/httpsig-tool", "--", "sign-hmac", "--method", "POST", "--path", "/foo", "--header", "content-type=application/json", "--secret-hex", "736563726574", "--keyid", "k1", "--created", "1700000000", "--component", "@method") -Expected '"signature_input"'
 Invoke-Smoke -Label "CLI RFC example" -Program $moon -Arguments @("run", "cmd/httpsig-tool", "--", "rfc-example") -Expected '"match":true'

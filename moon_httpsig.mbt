@@ -14,7 +14,7 @@
 ///|
 /// The library version, mirrored in `moon.mod`.
 pub fn library_version() -> String {
-  "0.1.1"
+  "0.1.2"
 }
 
 ///|

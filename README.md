@@ -5,7 +5,7 @@ and policy toolkit for MoonBit.
 
 > **Project/module**: `xiguaAp6y3/moon-httpsig`
 > **Repository**: https://github.com/xiguaAp6y3/moon-httpsig
-> **Version**: 0.1.1
+> **Version**: 0.1.2
 > **License**: Apache-2.0
 
 ## 中文项目介绍
@@ -431,7 +431,8 @@ python scripts/verify_rfc_fixtures.py   -> RFC 9421 fixtures OK
 
 ## Roadmap
 
-- v0.1.1（当前）：终审兼容补丁、严格四目标验证与 CI。
+- v0.1.2（当前）：适配 MoonBit 0.1.20261104 工具链、新增 README 用法示例的可运行版本。
+- v0.1.1：终审兼容补丁、严格四目标验证与 CI。
 - v0.1.0：RFC 9421 核心、HMAC、策略、CLI、测试。
 - v0.2.0：完整 RFC 9651 Adapter、更多 HTTP Adapter。
 - v0.3.0：Ed25519 Provider 与远程 Resolver 示例。
@@ -447,7 +448,7 @@ Apache-2.0，见 [LICENSE](LICENSE)。
 
 截至项目立项时的公开生态检索，未发现完整的 MoonBit RFC 9421 HTTP Message
 Signatures 实现。**这不是绝对保证**，仅代表立项时检索到的公开信息。
-项目已公开发布到 GitHub（`xiguaAp6y3/moon-httpsig`），终审补丁版
-`xiguaAp6y3/moon-httpsig@0.1.1` 已发布到 Mooncakes。
+项目已公开发布到 GitHub（`xiguaAp6y3/moon-httpsig`），
+`xiguaAp6y3/moon-httpsig@0.1.2` 已发布到 Mooncakes（历史版本：0.1.0、0.1.1）。
 
 [RFC 9421]: https://www.rfc-editor.org/rfc/rfc9421.html

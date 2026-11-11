@@ -2,7 +2,15 @@
 
 以下为未来计划，尚未完成。
 
-## v0.1.1（当前版本）
+## v0.1.2（当前版本）
+
+- 适配 MoonBit `0.1.20261104` 工具链（`Array(capacity=...)`、`exact_view`、
+  显式 `pub extend`、`moon fmt` 新规则）；
+- 公开 API 与签名/验签行为保持不变；
+- 新增 README 用法示例的可运行版本 `examples/readme_snippets`；
+- README 记录已验证工具链基线，并补充工具链兼容性与支持范围说明。
+
+## v0.1.1
 
 - 保持 v0.1.0 的 RFC 9421 功能边界；
 - 适配当前 MoonBit 编译器的显式 Trait 方法调用；
@@ -31,4 +39,4 @@
 
 - Webhook / ActivityPub / API Gateway Profile 应用层封装。
 
-> 这些条目**尚未完成**，仅作为后续规划；本阶段交付 v0.1.1。
+> 这些条目**尚未完成**，仅作为后续规划；本阶段交付 v0.1.2。
